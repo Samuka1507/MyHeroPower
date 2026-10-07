@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MHA Tabletop RPG — Quirks Complexas</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>🦸 <span>My Hero Academia</span> Tabletop</h1>
+    <div class="btns">
+      <button class="b" id="btnSave">💾 Salvar</button>
+      <button class="g" id="btnExport">📤 JSON</button>
+      <button class="d" id="btnNew">➕ Novo</button>
+      <button class="o" id="btnPreset">🎭 Exemplos</button>
+      <button class="p" id="btnMestre">🎲 Mestre</button>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <div class="chips" id="charChips"></div>
+
+    <div class="tabs" id="tabs">
+      <div class="tab on" data-p="ficha">📋 Ficha</div>
+      <div class="tab" data-p="atributos">💪 Atributos</div>
+      <div class="tab" data-p="quirk">⚡ Quirk</div>
+      <div class="tab" data-p="combate">⚔️ Combate</div>
+      <div class="tab" data-p="inimigos">👾 Inimigos</div>
+      <div class="tab" data-p="mapa">🗺️ Mapa</div>
+      <div class="tab" data-p="agencia">🏢 Agência</div>
+      <div class="tab" data-p="missoes">📜 Missões</div>
+      <div class="tab" data-p="ranking">🏆 Ranking</div>
+      <div class="tab" data-p="dados">🎲 Dados</div>
+      <div class="tab" data-p="notas">📝 Notas</div>
+      <div class="tab" data-p="regras">📖 Regras</div>
+      <div class="tab hid" data-p="mestre" id="tabMestre">🎲 Mestre</div>
+    </div>
+
+    <!-- FICHA -->
+    <div class="panel on" id="p-ficha">
+      <div class="grid">
+        <div class="card" id="idCard">
+          <h2>Identidade</h2>
+          <label>Nome Real</label><input id="nome" type="text" placeholder="Izuku Midoriya">
+          <label>Codinome</label><input id="codinome" type="text" placeholder="Deku">
+          <div class="grid">
+            <div><label>Idade</label><input id="idade" type="number" value="15" min="1"></div>
+            <div><label>Gênero</label><select id="genero">
+                <option>Masculino</option>
+                <option>Feminino</option>
+                <option>Outro</option>
+              </select></div>
+          </div>
+          <label>Lado</label>
+          <select id="lado">
+            <option>Estudante U.A. (Herói)</option>
+            <option>Herói Profissional</option>
+            <option>Vilão</option>
+            <option>Vigilante</option>
+            <option>Civil / Quirkless</option>
+            <option>Liga dos Vilões</option>
+          </select>
+          <label>Ranking Pessoal</label><input id="ranking" type="text" placeholder="Classe 1-A / Rank C">
+          <div id="vilBox" class="hid">
+            <label>Organização</label><input id="orgV" type="text">
+            <label>Objetivo</label><textarea id="objV"></textarea>
+            <label>Perigo</label><select id="perigo">
+              <option>C</option>
+              <option>B</option>
+              <option selected>A</option>
+              <option>S</option>
+              <option>SS</option>
+            </select>
+          </div>
+          <div class="row" style="margin-top:.4rem">
+            <span>Nível:</span> <span class="lv" id="lv">1</span>
+            <label style="margin:0">XP</label>
+            <input id="xp" type="number" value="0" min="0" style="width:80px;margin:0">
+            <span>/ <span id="xpNeed">100</span></span>
+          </div>
+          <div class="bar-wrap"><span>⭐</span>
+            <div class="bar">
+              <div class="fill xp" id="xpBar" style="width:0%"></div>
+            </div><span class="val" id="xpPct">0%</span>
+          </div>
+          <div class="row"><button id="xp10">+10</button><button id="xp25">+25</button><button class="b"
+              id="xp50">+50</button><button class="o" id="xp100">+100</button></div>
+        </div>
+        <div class="card">
+          <h2>Recursos</h2>
+          <div class="bar-wrap"><span>❤️ PV</span>
+            <div class="bar">
+              <div class="fill hp" id="hpBar" style="width:100%"></div>
+            </div><span class="val"><span id="hpA">30</span>/<span id="hpM">30</span></span>
+          </div>
+          <div class="row"><button data-r="hp" data-n="-1">-1</button><button data-r="hp" data-n="-5">-5</button><button
+              class="b" data-r="hp" data-n="1">+1</button><button class="b" data-r="hp" data-n="5">+5</button><button
+              class="g" data-r="hp" data-n="max">Max</button></div>
+          <div class="bar-wrap" style="margin-top:.5rem"><span>💨 Sta</span>
+            <div class="bar">
+              <div class="fill st" id="stBar" style="width:100%"></div>
+            </div><span class="val"><span id="stA">20</span>/<span id="stM">20</span></span>
+          </div>
+          <div class="row"><button data-r="st" data-n="-1">-1</button><button data-r="st" data-n="-5">-5</button><button
+              class="b" data-r="st" data-n="1">+1</button><button class="b" data-r="st" data-n="5">+5</button><button
+              class="g" data-r="st" data-n="max">Max</button></div>
+          <div class="bar-wrap" style="margin-top:.5rem"><span>⚡ Qk</span>
+            <div class="bar">
+              <div class="fill qk" id="qkBar" style="width:100%"></div>
+            </div><span class="val"><span id="qkA">15</span>/<span id="qkM">15</span></span>
+          </div>
+          <div class="row"><button data-r="qk" data-n="-1">-1</button><button data-r="qk" data-n="-3">-3</button><button
+              class="b" data-r="qk" data-n="1">+1</button><button class="b" data-r="qk" data-n="3">+3</button><button
+              class="g" data-r="qk" data-n="max">Max</button></div>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Aparência & História</h2>
+        <label>Aparência</label><textarea id="apar"></textarea>
+        <label>História</label><textarea id="hist"></textarea>
+      </div>
+    </div>
+
+    <!-- ATRIBUTOS -->
+    <div class="panel" id="p-atributos">
+      <div class="grid">
+        <div class="card">
+          <h2>Oficiais (1-10)</h2>
+          <div class="srow"><span class="slab">💥 Poder</span><input id="aPod" type="number" min="1" max="10" value="3"
+              style="width:55px">
+            <div class="sbar">
+              <div class="sfill" id="bPod"></div>
+            </div>
+          </div>
+          <div class="srow"><span class="slab">🏃 Velocidade</span><input id="aVel" type="number" min="1" max="10"
+              value="3" style="width:55px">
+            <div class="sbar">
+              <div class="sfill" id="bVel"></div>
+            </div>
+          </div>
+          <div class="srow"><span class="slab">🎯 Técnica</span><input id="aTec" type="number" min="1" max="10"
+              value="3" style="width:55px">
+            <div class="sbar">
+              <div class="sfill" id="bTec"></div>
+            </div>
+          </div>
+          <div class="srow"><span class="slab">🧠 Inteligência</span><input id="aInt" type="number" min="1" max="10"
+              value="3" style="width:55px">
+            <div class="sbar">
+              <div class="sfill" id="bInt"></div>
+            </div>
+          </div>
+          <div class="srow"><span class="slab">🤝 Cooperatividade</span><input id="aCoo" type="number" min="1" max="10"
+              value="3" style="width:55px">
+            <div class="sbar">
+              <div class="sfill" id="bCoo"></div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <h2>Sistema (d20)</h2>
+          <div class="grid">
+            <div><label>Força</label><input id="sFor" type="number" value="10" min="1" max="30"></div>
+            <div><label>Agilidade</label><input id="sAgi" type="number" value="10" min="1" max="30"></div>
+            <div><label>Resistência</label><input id="sRes" type="number" value="10" min="1" max="30"></div>
+            <div><label>Inteligência</label><input id="sInt" type="number" value="10" min="1" max="30"></div>
+            <div><label>Carisma</label><input id="sCar" type="number" value="10" min="1" max="30"></div>
+            <div><label>Controle Quirk</label><input id="sCon" type="number" value="10" min="1" max="30"></div>
+          </div>
+          <div style="margin-top:.6rem;background:#0d1b2a;padding:.5rem;border-radius:8px"><strong>Mods:</strong> <span
+              id="mods" style="color:var(--y)"></span></div>
+          <button class="b" id="btnRecalc" style="margin-top:.5rem">🔄 Recalcular Recursos</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUIRK + EVOLUÇÃO -->
+    <div class="panel" id="p-quirk">
+      <div class="grid">
+        <div class="card">
+          <h2>Quirk</h2>
+          <label>Nome</label><input id="qNome" type="text" placeholder="Ex: One For All / Medo Materializado">
+          <label>Tipo</label>
+          <select id="qTipo">
+            <option>Emitter</option>
+            <option>Transformation</option>
+            <option>Mutant</option>
+            <option>Composite / Especial</option>
+          </select>
+          <label>Complexidade</label>
+          <select id="qComp">
+            <option value="simples">Simples (efeito direto e fixo)</option>
+            <option value="moderada">Moderada (condições ou escala)</option>
+            <option value="complexa" selected>Complexa (narrativa / crença / variáveis)</option>
+          </select>
+          <label>Descrição Geral</label><textarea id="qDesc" placeholder="O que o Quirk faz em poucas palavras"></textarea>
+          <label>Mecânica Especial (regras detalhadas)</label>
+          <textarea id="qMec" style="min-height:90px" placeholder="Ex: O poder escala com o número de NPCs que acreditam no herói. 1-3 crentes = nível básico; 4-10 = +1d6; 11+ = vantagem e efeito maximizado. O Mestre determina a crença dos NPCs baseado em ações, reputação e narrativa."></textarea>
+          <label>Limitações / Preço</label><textarea id="qLim" placeholder="Ex: Precisa de pelo menos 1 crente; se ninguém acreditar, o Quirk falha ou causa feedback"></textarea>
+          <div class="grid">
+            <div><label>Custo Energia base</label><input id="qCusto" type="number" value="2" min="0"></div>
+            <div><label>Nível do Quirk</label><input id="qLv" type="number" value="1" min="1" max="10"></div>
+          </div>
+          <label>Alcance</label><input id="qAlc" type="text" placeholder="Ex: Toque / 10m / Visual / Global (com crença)">
+          <label>Duração</label><input id="qDur" type="text" placeholder="Ex: Instantâneo / 1 turno / Enquanto houver crentes">
+          <label>XP do Quirk</label><input id="qXP" type="number" value="0" min="0">
+          <div class="bar-wrap"><span>Quirk XP</span>
+            <div class="bar">
+              <div class="fill xp" id="qXPBar" style="width:0%"></div>
+            </div><span class="val" id="qXPPct">0%</span>
+          </div>
+          <div class="row"><button id="qxp10">+10 QXP</button><button id="qxp25">+25 QXP</button><button class="o"
+              id="btnEvolve">⚡ Evoluir Quirk</button></div>
+        </div>
+        <div class="card">
+          <h2>Habilidades & Técnicas</h2>
+          <div id="abList"></div>
+          <input id="abN" type="text" placeholder="Nome da habilidade / técnica">
+          <textarea id="abD" placeholder="Descrição + custo + condições especiais" style="min-height:50px"></textarea>
+          <button id="btnAddAb">➕ Adicionar</button>
+          <div style="margin-top:.8rem;background:#0d1b2a;padding:.6rem;border-radius:8px;font-size:.82rem;color:var(--m)">
+            <strong style="color:var(--y)">Evolução de Quirk:</strong><br>
+            Precisa de QXP = Nível do Quirk × 50.<br>
+            Ao evoluir: +1 Nível de Quirk, pode reduzir limitação, aumentar escala, criar nova habilidade ou aprimorar mecânica complexa (Mestre aprova).
+          </div>
+          <div style="margin-top:.8rem;background:#0d1b2a;padding:.6rem;border-radius:8px;font-size:.82rem;color:var(--m)">
+            <strong style="color:var(--y)">Como adaptar Quirks complexas:</strong><br>
+            • <strong>Simples:</strong> efeito fixo (ex: jato de fogo 2d6, custo 2).<br>
+            • <strong>Moderada:</strong> tem escala ou condição (ex: mais forte com velocidade).<br>
+            • <strong>Complexa:</strong> depende de narrativa, NPCs, crença, emoções, etc. O Mestre julga o efeito caso a caso usando a Mecânica Especial.
+          </div>
+        </div>
+      </div>
+      <div class="card" style="margin-top:1rem">
+        <h2>Exemplos de Quirks (copie e adapte)</h2>
+        <div style="font-size:.85rem;color:var(--m);line-height:1.5">
+          <p style="margin-bottom:.5rem"><strong style="color:var(--g)">Simples — Explosão (Bakugo):</strong> Emitter. Cria explosões nas mãos usando suor nitroglicerina. Custo 2. Limitação: fadiga e suor necessário.</p>
+          <p style="margin-bottom:.5rem"><strong style="color:var(--y)">Moderada — Hardening (Kirishima):</strong> Transformation. Endurece o corpo. Custo 1/turno. Escala com Nível do Quirk (mais resistência).</p>
+          <p style="margin-bottom:.5rem"><strong style="color:var(--o)">Complexa — Medo Materializado (exemplo original):</strong> Emitter / Especial. O usuário sente o medo das pessoas próximas e materializa manifestações físicas desse medo (criaturas, objetos, distorções). Quanto mais intenso e compartilhado o medo, mais poderosas e duradouras as manifestações. O usuário sofre feedback emocional proporcional.</p>
+          <p style="margin-bottom:.5rem"><strong style="color:var(--p)">Complexa — New Order (inspirado):</strong> Pode impor regras temporárias na realidade falando, mas só funciona se o alvo ou testemunhas aceitarem minimamente a autoridade do usuário. Custo alto + desgaste mental.</p>
+        </div>
+        <button class="b" id="btnExMedo" style="margin-top:.5rem">📋 Carregar exemplo "Medo Materializado"</button>
+      </div>
+    </div>
+
+    <!-- COMBATE -->
+    <div class="panel" id="p-combate">
+      <div class="grid">
+        <div class="card">
+          <h2>Iniciativa</h2>
+          <div class="row">
+            <input id="iName" type="text" placeholder="Nome" style="flex:1">
+            <input id="iVal" type="number" placeholder="Ini" style="width:70px">
+            <button id="btnAddIni">➕</button>
+          </div>
+          <ul class="ilist" id="iList"></ul>
+          <div class="row" style="margin-top:.4rem">
+            <button class="b" id="btnNext">➡️ Próximo</button>
+            <button class="d" id="btnClrIni">Limpar</button>
+            <button class="g" id="btnRollIni">🎲 Rolar Todos</button>
+          </div>
+          <h2 style="margin-top:1rem">Atacar</h2>
+          <label>CA do Alvo (0 = 12 padrão)</label><input id="alvoCA" type="number" value="12" min="0">
+          <label>Nome do Alvo</label><input id="alvoNome" type="text" placeholder="Vilão / Inimigo">
+          <div style="display:flex;flex-direction:column;gap:.35rem;margin-top:.4rem">
+            <button id="atkBas">👊 Ataque Básico (1d6+Poder/2)</button>
+            <button class="p" id="atkEsp">💥 Especial −3 Energia (2d6+Poder)</button>
+            <button class="b" id="atkQuirk">⚡ Quirk −custo (1d8+Ctrl/2)</button>
+            <button class="o" id="atkPlus">🔥 PLUS ULTRA! −5 (vantagem + 2d6+Poder)</button>
+          </div>
+          <div id="atkRes" class="res hid"></div>
+        </div>
+        <div class="card">
+          <h2>Log de Combate</h2>
+          <div class="log" id="cLog" style="max-height:360px"></div>
+          <div class="row" style="margin-top:.5rem">
+            <button class="g" id="actEsq">🛡️ Esquiva</button>
+            <button class="b" id="actDef">🧱 Defesa (+2 CA)</button>
+            <button class="d" id="clrLog">Limpar Log</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- INIMIGOS -->
+    <div class="panel" id="p-inimigos">
+      <div class="grid">
+        <div class="card">
+          <h2>👾 Criar / Gerar Inimigo</h2>
+          <label>Nome</label><input id="enNome" type="text" placeholder="deixe vazio para gerar">
+          <label>Tipo</label>
+          <select id="enTipo">
+            <option>Vilão Rank C</option>
+            <option>Vilão Rank B</option>
+            <option selected>Vilão Rank A</option>
+            <option>Vilão Rank S</option>
+            <option>Lacaio</option>
+            <option>Nomu</option>
+            <option>Herói Rival</option>
+          </select>
+          <div class="row" style="margin-top:.4rem">
+            <button class="b" id="btnGenEn">🎲 Gerar</button>
+            <button class="d" id="btnAddEn">➕ Adicionar Manual</button>
+            <button class="g" id="btnClrEn">Limpar Lista</button>
+          </div>
+          <div style="margin-top:.8rem">
+            <label>PV</label><input id="enPV" type="number" value="25">
+            <label>CA</label><input id="enCA" type="number" value="13">
+            <label>Poder</label><input id="enPod" type="number" value="3">
+            <label>Quirk</label><input id="enQuirk" type="text" placeholder="Nome do Quirk">
+          </div>
+        </div>
+        <div class="card">
+          <h2>Inimigos Ativos</h2>
+          <div id="enList"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAPA -->
+    <div class="panel" id="p-mapa">
+      <div class="card">
+        <h2>🗺️ Mapa</h2>
+        <div class="row" style="margin-bottom:.6rem">
+          <button class="b" id="mmChar">👤 Personagem</button>
+          <button class="g" id="mmWall">🧱 Parede</button>
+          <button class="o" id="mmCover">🛡️ Cobertura</button>
+          <button class="d" id="mmClear">🗑️ Limpar célula</button>
+          <button class="p" id="mmReset">🔄 Reset</button>
+          <select id="mapSize">
+            <option value="8">8×8</option>
+            <option value="10" selected>10×10</option>
+            <option value="12">12×12</option>
+          </select>
+        </div>
+        <div style="overflow:auto">
+          <div class="mgrid" id="mapGrid"></div>
+        </div>
+        <p style="margin-top:.5rem;font-size:.8rem;color:var(--m)">Célula: <strong id="selCell">—</strong> · Tokens:
+          <span id="mapN">0</span></p>
+      </div>
+    </div>
+
+    <!-- AGÊNCIA -->
+    <div class="panel" id="p-agencia">
+      <div class="grid">
+        <div class="card">
+          <h2>🏢 Agência</h2>
+          <label>Nome</label><input id="agNome" type="text" placeholder="Might Agency">
+          <label>Líder</label><input id="agLider" type="text">
+          <label>Rank</label>
+          <select id="agRank">
+            <option>D</option>
+            <option>C</option>
+            <option selected>B</option>
+            <option>A</option>
+            <option>S</option>
+          </select>
+          <label>Reputação (0-100)</label><input id="agRep" type="number" value="20" min="0" max="100">
+          <div class="bar-wrap"><span>Rep</span>
+            <div class="bar">
+              <div class="fill xp" id="agRepBar" style="width:20%"></div>
+            </div><span class="val" id="agRepV">20</span>
+          </div>
+          <label>XP da Agência</label><input id="agXP" type="number" value="0" min="0">
+          <div class="row"><button id="agxp10">+10 AXP</button><button id="agxp25">+25 AXP</button><button class="o"
+              id="btnAgRank">⬆️ Subir Rank</button></div>
+          <label>Membros</label><textarea id="agMem"></textarea>
+          <label>Recursos</label><textarea id="agRec"></textarea>
+        </div>
+        <div class="card">
+          <h2>Rank da Agência</h2>
+          <ul style="padding-left:1.1rem;font-size:.85rem;color:var(--m)">
+            <li><strong>D:</strong> 0 Rep · missões locais · +5 XP</li>
+            <li><strong>C:</strong> 20 Rep · 1 sidekick · +10 XP</li>
+            <li><strong>B:</strong> 40 Rep · 2-3 sidekicks · +15 XP</li>
+            <li><strong>A:</strong> 65 Rep · equipe · +25 XP</li>
+            <li><strong>S:</strong> 85 Rep · recursos máximos · +40 XP</li>
+          </ul>
+          <p style="font-size:.82rem;color:var(--m);margin-top:.6rem">Para subir de rank: Reputação mínima + XP da
+            Agência (Rank×100).</p>
+          <button class="b" id="btnAgMis" style="margin-top:.5rem">📋 Gerar Missão de Agência</button>
+          <div id="agMisOut"
+            style="margin-top:.5rem;background:#0d1b2a;padding:.6rem;border-radius:8px;font-size:.84rem;color:var(--m);min-height:50px">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MISSÕES -->
+    <div class="panel" id="p-missoes">
+      <div class="grid">
+        <div class="card">
+          <h2>📜 Nova Missão</h2>
+          <label>Título</label><input id="mTit" type="text">
+          <label>Tipo</label>
+          <select id="mTipo">
+            <option>Patrulha</option>
+            <option>Resgate</option>
+            <option>Combate</option>
+            <option>Investigação</option>
+            <option>Treinamento</option>
+            <option>Agência</option>
+            <option>Vilão</option>
+          </select>
+          <label>Descrição</label><textarea id="mDesc"></textarea>
+          <label>XP</label><input id="mXP" type="number" value="50">
+          <label>Recompensa</label><input id="mRew" type="text" placeholder="item, ranking, QXP...">
+          <button id="btnAddMis">➕ Adicionar</button>
+        </div>
+        <div class="card">
+          <h2>Missões</h2>
+          <div id="mList"></div>
+          <div class="row" style="margin-top:.5rem">
+            <button class="b" id="btnCompMis">✅ Completar</button>
+            <button class="d" id="btnClrMis">Limpar Feitas</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RANKING -->
+    <div class="panel" id="p-ranking">
+      <div class="card">
+        <h2>🏆 Sistema de Ranking</h2>
+        <p style="font-size:.88rem;color:var(--m);margin-bottom:.8rem">Ranking pessoal e de agência sobem com missões,
+          combates e reputação.</p>
+        <div class="grid">
+          <div>
+            <h3 style="color:var(--y);margin-bottom:.4rem">Ranking Pessoal (Heróis)</h3>
+            <ul style="padding-left:1.1rem;font-size:.85rem;color:var(--m)">
+              <li><strong>Rank C:</strong> Estudante / iniciante</li>
+              <li><strong>Rank B:</strong> Herói provisório / sidekick forte</li>
+              <li><strong>Rank A:</strong> Herói profissional consolidado</li>
+              <li><strong>Rank S:</strong> Top 10 / símbolo nacional</li>
+            </ul>
+            <label style="margin-top:.6rem">Seu Rank Atual</label>
+            <select id="rankPessoal">
+              <option>C</option>
+              <option>B</option>
+              <option selected>A</option>
+              <option>S</option>
+            </select>
+            <label>Pontos de Ranking</label><input id="rankPts" type="number" value="0" min="0">
+            <div class="row"><button id="rp10">+10 pts</button><button id="rp25">+25 pts</button><button class="o"
+                id="btnUpRank">⬆️ Avaliar Rank</button></div>
+          </div>
+          <div>
+            <h3 style="color:var(--y);margin-bottom:.4rem">Como subir</h3>
+            <ul style="padding-left:1.1rem;font-size:.85rem;color:var(--m)">
+              <li>Missão concluída: +10–40 pts</li>
+              <li>Derrotar vilão Rank igual ou maior: +15–50 pts</li>
+              <li>Salvar civis / ação heroica: +5–20 pts</li>
+              <li>Falha pública / dano colateral: −10 pts</li>
+            </ul>
+            <p style="font-size:.82rem;color:var(--m);margin-top:.5rem">
+              C→B: 50 pts · B→A: 120 pts · A→S: 250 pts
+            </p>
+            <div id="rankMsg"
+              style="margin-top:.6rem;background:#0d1b2a;padding:.6rem;border-radius:8px;font-size:.84rem;color:var(--m)">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DADOS -->
+    <div class="panel" id="p-dados">
+      <div class="grid">
+        <div class="card">
+          <h2>Dados</h2>
+          <div class="row" style="margin-bottom:.5rem">
+            <button class="dbtn" data-d="4">d4</button><button class="dbtn" data-d="6">d6</button>
+            <button class="dbtn" data-d="8">d8</button><button class="dbtn" data-d="10">d10</button>
+            <button class="dbtn" data-d="12">d12</button><button class="dbtn" data-d="20">d20</button>
+            <button class="dbtn" data-d="100">d100</button>
+          </div>
+          <div class="row"><label style="margin:0">Qtd</label><input id="dQty" type="number" value="1" min="1"
+              style="width:55px;margin:0">
+            <label style="margin:0">Mod</label><input id="dMod" type="number" value="0" style="width:55px;margin:0">
+            <button class="b" id="btnRoll20">Rolar d20</button>
+          </div>
+          <div class="dres" id="dRes">—</div>
+          <div class="log" id="dLog"></div>
+        </div>
+        <div class="card">
+          <h2>Testes</h2>
+          <div class="grid">
+            <button data-t="Força">Força</button><button data-t="Agilidade">Agilidade</button>
+            <button data-t="Resistência">Resistência</button><button data-t="Inteligência">Inteligência</button>
+            <button data-t="Carisma">Carisma</button><button data-t="Controle">Controle</button>
+          </div>
+          <div class="row" style="margin-top:.6rem">
+            <button class="b" id="btnAdv">✨ Vantagem</button>
+            <button class="d" id="btnDis">⚠️ Desvantagem</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NOTAS -->
+    <div class="panel" id="p-notas">
+      <div class="grid">
+        <div class="card">
+          <h2>Inventário</h2><textarea id="inv" style="min-height:160px"></textarea>
+        </div>
+        <div class="card">
+          <h2>Notas</h2><textarea id="notas" style="min-height:160px"></textarea>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Relacionamentos</h2><textarea id="rel" style="min-height:70px"></textarea>
+      </div>
+    </div>
+
+    <!-- MESTRE -->
+    <div class="panel" id="p-mestre">
+      <div class="grid">
+        <div class="card">
+          <h2>Gerar NPC</h2>
+          <select id="nTipo">
+            <option>Estudante</option>
+            <option>Herói</option>
+            <option>Vilão Rank C</option>
+            <option>Vilão Rank B</option>
+            <option>Vilão Rank A</option>
+            <option>Vilão Rank S</option>
+          </select>
+          <input id="nNome" type="text" placeholder="Nome (vazio=auto)">
+          <div class="row"><button class="b" id="btnGenNPC">🎲 Gerar</button><button class="d" id="btnGenVil">😈
+              Vilão</button></div>
+          <div id="nList" style="margin-top:.7rem"></div>
+        </div>
+        <div class="card">
+          <h2>Ferramentas</h2>
+          <button id="mEnc" style="width:100%;margin-bottom:.3rem">🎲 Encontro</button>
+          <button class="o" id="mCom" style="width:100%;margin-bottom:.3rem">⚡ Complicação</button>
+          <button class="b" id="mRew" style="width:100%;margin-bottom:.3rem">🎁 Recompensa</button>
+          <div class="log" id="mLog" style="margin-top:.5rem;max-height:180px"></div>
+        </div>
+      </div>
+    </div>
+
+    
+    <!-- REGRAS -->
+    <div class="panel" id="p-regras">
+      <div class="card">
+        <h2>📖 Regras Completas do Sistema</h2>
+
+        <h3 style="color:var(--y);margin:.8rem 0 .4rem">1. Criação de Personagem (Jogador)</h3>
+        <ol style="padding-left:1.2rem;font-size:.88rem;color:var(--m)">
+          <li>Clique em <strong>➕ Novo</strong> (ou carregue um exemplo com o botão 🎭 Exemplos).</li>
+          <li>Preencha a aba <strong>📋 Ficha</strong>: Nome real, Codinome, Idade, Gênero, Lado (Estudante U.A., Herói Profissional, Vilão, Vigilante, etc.). Se escolher Vilão ou Liga dos Vilões, aparece bloco extra (Organização, Objetivo, Nível de Perigo).</li>
+          <li>Aba <strong>💪 Atributos</strong>: Oficiais (1-10) e Sistema (d20). Clique em <strong>🔄 Recalcular Recursos</strong> para gerar PV, Stamina e Energia de Quirk automaticamente.</li>
+          <li>Aba <strong>⚡ Quirk</strong> → coração do sistema (veja seção específica abaixo).</li>
+          <li>Preencha Aparência, História, Inventário, Notas e Relacionamentos.</li>
+          <li>Clique em <strong>💾 Salvar</strong>. O personagem fica salvo no navegador e aparece como chip no topo.</li>
+        </ol>
+        <p style="font-size:.85rem;color:var(--m);margin-top:.4rem"><strong>Dica:</strong> Use os botões de XP (+10, +25, +50, +100) e evolua o personagem e o Quirk conforme a campanha avança.</p>
+
+        <h3 style="color:var(--y);margin:.8rem 0 .4rem">2. Criação de NPCs e Vilões</h3>
+        <p style="font-size:.88rem;color:var(--m);margin-bottom:.3rem"><strong>A) Aba 👾 Inimigos (rápida)</strong></p>
+        <ul style="padding-left:1.2rem;font-size:.88rem;color:var(--m)">
+          <li>Escolha o tipo (Vilão Rank C/B/A/S, Lacaio, Nomu, Herói Rival).</li>
+          <li>Clique em <strong>🎲 Gerar</strong> ou preencha manualmente e <strong>➕ Adicionar Manual</strong>.</li>
+          <li>Depois pode usar como Alvo, adicionar na iniciativa ou tirar PV rapidamente.</li>
+        </ul>
+        <p style="font-size:.88rem;color:var(--m);margin:.4rem 0 .3rem"><strong>B) Aba 🎲 Mestre (mais completa)</strong></p>
+        <ul style="padding-left:1.2rem;font-size:.88rem;color:var(--m)">
+          <li>Ative o modo Mestre no canto superior direito.</li>
+          <li>Gere NPCs de qualquer tipo e use as ferramentas: Encontro, Complicação e Recompensa.</li>
+        </ul>
+        <p style="font-size:.85rem;color:var(--m);margin-top:.4rem"><strong>Balanceamento sugerido:</strong> Rank C (ameaça local) · Rank B (desafio 1-2 heróis) · Rank A (combate sério de grupo) · Rank S / Nomu (boss de arco).</p>
+
+        <h3 style="color:var(--y);margin:.8rem 0 .4rem">3. Sistema de Rolagem de Dados</h3>
+        <p style="font-size:.88rem;color:var(--m);margin-bottom:.4rem">O sistema usa <strong>d20</strong> (estilo heroico/cinematográfico), ideal para My Hero Academia.</p>
+        <table style="width:100%;font-size:.84rem;color:var(--m);border-collapse:collapse;margin-bottom:.5rem">
+          <tr style="border-bottom:1px solid var(--bd)"><th style="text-align:left;padding:.3rem">Situação</th><th style="text-align:left;padding:.3rem">Rolagem</th><th style="text-align:left;padding:.3rem">Observação</th></tr>
+          <tr style="border-bottom:1px solid #1a2a3a"><td style="padding:.3rem">Teste de atributo</td><td style="padding:.3rem">d20 + modificador</td><td style="padding:.3rem">Mod = (atributo − 10) / 2</td></tr>
+          <tr style="border-bottom:1px solid #1a2a3a"><td style="padding:.3rem">Ataque</td><td style="padding:.3rem">d20 + Técnica (ou Força) vs CA</td><td style="padding:.3rem">Crítico no 20 · Falha crítica no 1</td></tr>
+          <tr style="border-bottom:1px solid #1a2a3a"><td style="padding:.3rem">Iniciativa</td><td style="padding:.3rem">d20 + Agilidade</td><td style="padding:.3rem">—</td></tr>
+          <tr style="border-bottom:1px solid #1a2a3a"><td style="padding:.3rem">Dano Básico</td><td style="padding:.3rem">1d6 + Poder/2</td><td style="padding:.3rem">—</td></tr>
+          <tr style="border-bottom:1px solid #1a2a3a"><td style="padding:.3rem">Dano Especial</td><td style="padding:.3rem">2d6 + Poder</td><td style="padding:.3rem">Custa 3 de Energia</td></tr>
+          <tr style="border-bottom:1px solid #1a2a3a"><td style="padding:.3rem">Dano de Quirk</td><td style="padding:.3rem">1d8 + Controle/2 (ou mecânica especial)</td><td style="padding:.3rem">Custa o valor do Quirk</td></tr>
+          <tr><td style="padding:.3rem">Plus Ultra</td><td style="padding:.3rem">Vantagem + 2d6 + Poder</td><td style="padding:.3rem">Custa 5 de Energia</td></tr>
+        </table>
+        <p style="font-size:.85rem;color:var(--m)"><strong>Vantagem / Desvantagem:</strong> role 2d20 e fique com o melhor (ou pior). O d20 combina com o tom heroico de MHA e gera momentos épicos com críticos e falhas.</p>
+
+        <h3 style="color:var(--y);margin:.8rem 0 .4rem">4. Combate Rápido</h3>
+        <ol style="padding-left:1.2rem;font-size:.88rem;color:var(--m)">
+          <li>Iniciativa: d20 + Agilidade</li>
+          <li>No turno: mover + 1 ação</li>
+          <li>Ataque: d20 + Técnica (ou Força) vs CA do alvo</li>
+          <li>Acertou (≥ CA) → rola dano e anota</li>
+          <li>Crítico (20): dano ×2 · Falha (1): errou + complicação</li>
+        </ol>
+
+        <h3 style="color:var(--y);margin:.8rem 0 .4rem">5. Sistema de Quirks — Simples a Complexas</h3>
+        <p style="font-size:.88rem;color:var(--m);margin-bottom:.4rem">O sistema aceita qualquer Quirk, desde os mais diretos até os mais narrativos e condicionais.</p>
+
+        <h4 style="color:var(--g);margin:.5rem 0 .2rem">Classificação de Complexidade</h4>
+        <ul style="padding-left:1.2rem;font-size:.88rem;color:var(--m)">
+          <li><strong>Simples:</strong> Efeito direto e previsível. Custo fixo. Ex: jato de fogo, super força, endurecimento.</li>
+          <li><strong>Moderada:</strong> Tem escala, condição ou variável controlável. Ex: quanto mais rápido corre, mais forte fica.</li>
+          <li><strong>Complexa:</strong> Depende de fatores externos, narrativa, NPCs, emoções, medo, regras impostas etc. O Mestre julga usando a “Mecânica Especial” da ficha.</li>
+        </ul>
+
+        <h4 style="color:var(--g);margin:.5rem 0 .2rem">Como criar qualquer Quirk</h4>
+        <ol style="padding-left:1.2rem;font-size:.88rem;color:var(--m)">
+          <li><strong>Nome + Tipo</strong> (Emitter / Transformation / Mutant / Composite).</li>
+          <li><strong>Descrição geral</strong> — o que faz em 1-2 frases.</li>
+          <li><strong>Mecânica Especial</strong> — regras detalhadas, escalas, condições e o que o Mestre precisa decidir.</li>
+          <li><strong>Limitações / Preço</strong> — o que impede abuso (custo, fadiga, risco, feedback emocional etc.).</li>
+          <li><strong>Alcance e Duração</strong>.</li>
+          <li><strong>Habilidades / Técnicas</strong> — usos específicos (cada um com custo e condições).</li>
+        </ol>
+
+        <h4 style="color:var(--g);margin:.5rem 0 .2rem">Exemplo de Quirk Complexa: Medo Materializado</h4>
+        <p style="font-size:.88rem;color:var(--m);margin-bottom:.4rem">
+          O usuário sente o medo das pessoas próximas e materializa manifestações físicas desse medo (criaturas, objetos aterrorizantes, distorções). O poder, tamanho e duração dependem da <strong>intensidade e quantidade de medo</strong>. O usuário sofre feedback emocional.
+        </p>
+        <ul style="padding-left:1.2rem;font-size:.88rem;color:var(--m)">
+          <li><strong>Medo baixo / isolado:</strong> manifestações fracas, curtas e fáceis de destruir.</li>
+          <li><strong>Medo moderado (várias pessoas):</strong> criaturas ou obstáculos sólidos com PV e ataques próprios.</li>
+          <li><strong>Medo intenso / pânico coletivo:</strong> manifestações poderosas, área maior, efeitos de status (medo, paralisia, confusão).</li>
+          <li>Se o medo for superado (coragem, inspiração), as manifestações enfraquecem ou podem se voltar contra o usuário.</li>
+        </ul>
+        <p style="font-size:.85rem;color:var(--m);margin-top:.3rem">Ideal para Quirks que interagem com emoções e narrativa. O Mestre controla o nível de medo dos NPCs e o feedback que o usuário recebe.</p>
+
+        <h4 style="color:var(--g);margin:.5rem 0 .2rem">Dicas para o Mestre</h4>
+        <ul style="padding-left:1.2rem;font-size:.88rem;color:var(--m)">
+          <li>Quirks complexas devem ter <strong>custo narrativo</strong> além do custo de energia (feedback emocional, risco, preço social).</li>
+          <li>Nunca deixe o jogador decidir sozinho a intensidade do medo, crença ou qualquer fator externo — isso é responsabilidade do Mestre.</li>
+          <li>Use a situação, a reputação dos personagens e as ações recentes para decidir o nível dos fatores externos.</li>
+          <li>Permita evolução: ao subir o Nível do Quirk, o jogador pode melhorar a escala, reduzir limitações ou criar novas técnicas (sempre com sua aprovação).</li>
+        </ul>
+
+        <h3 style="color:var(--y);margin:.8rem 0 .4rem">6. XP / Ranking / Quirk / Agência</h3>
+        <ul style="padding-left:1.2rem;font-size:.88rem;color:var(--m)">
+          <li>XP personagem: Nível × 100 para subir</li>
+          <li>QXP (Quirk): Nível do Quirk × 50 para evoluir</li>
+          <li>Rank pessoal: pontos de ranking (missão/combate)</li>
+          <li>Agência: Reputação + AXP para subir rank D→S</li>
+        </ul>
+
+        <h3 style="color:var(--y);margin:.8rem 0 .4rem">7. Fluxo de Jogo Recomendado</h3>
+        <ol style="padding-left:1.2rem;font-size:.88rem;color:var(--m)">
+          <li>Crie os personagens dos jogadores.</li>
+          <li>Crie os vilões/NPCs na aba Inimigos ou Mestre.</li>
+          <li>Use a aba 🗺️ Mapa se quiser combate tático.</li>
+          <li>Role iniciativa → ataque → dano → anote no log.</li>
+          <li>Para Quirks complexas: o jogador declara a intenção → o Mestre define os fatores externos → aplica o resultado da Mecânica Especial.</li>
+          <li>Conceda XP, QXP, pontos de Ranking e Reputação de Agência conforme as ações.</li>
+        </ol>
+
+        <p style="text-align:center;margin-top:1.2rem;font-weight:900;color:var(--y);letter-spacing:2px">PLUS ULTRA!</p>
+      </div>
+    </div>
+
+  <div class="foot">MHA Tabletop · Quirks Simples a Complexas · Medo Materializado · Inimigos · Ranking · Agência · Evolução</div>
+  <script src="app.js"></script>
+</body>
+</html>
