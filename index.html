@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MHA Tabletop RPG — Quirks Complexas</title>
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
   <header>
     <h1>🦸 <span>My Hero Academia</span> Tabletop</h1>
@@ -24,24 +22,20 @@
     <div class="chips" id="charChips"></div>
 
     <div class="tabs" id="tabs">
-      <div class="tab on" data-p="ficha">📋 Ficha</div>
-      <div class="tab" data-p="atributos">💪 Atributos</div>
-      <div class="tab" data-p="quirk">⚡ Quirk</div>
-      <div class="tab" data-p="combate">⚔️ Combate</div>
+      <div class="tab on" data-p="personagem">👤 Personagem</div>
+      <div class="tab" data-p="mapa">🗺️ Combate</div>
       <div class="tab" data-p="inimigos">👾 Inimigos</div>
-      <div class="tab" data-p="mapa">🗺️ Mapa</div>
       <div class="tab" data-p="agencia">🏢 Agência</div>
       <div class="tab" data-p="missoes">📜 Missões</div>
       <div class="tab" data-p="calendario">📅 Calendário</div>
       <div class="tab" data-p="ranking">🏆 Ranking</div>
       <div class="tab" data-p="dados">🎲 Dados</div>
-      <div class="tab" data-p="notas">📝 Notas</div>
       <div class="tab" data-p="regras">📖 Regras</div>
       <div class="tab hid" data-p="mestre" id="tabMestre">🎲 Mestre</div>
     </div>
 
-    <!-- FICHA -->
-    <div class="panel on" id="p-ficha">
+    <!-- PERSONAGEM (ficha+atributos+quirk+notas) -->
+    <div class="panel on" id="p-personagem">
       <div class="grid">
         <div class="card" id="idCard">
           <h2>Identidade</h2>
@@ -122,11 +116,9 @@
         <h2>Aparência & História</h2>
         <label>Aparência</label><textarea id="apar"></textarea>
         <label>História</label><textarea id="hist"></textarea>
-      </div>
-    </div>
-
-    <!-- ATRIBUTOS -->
-    <div class="panel" id="p-atributos">
+      
+      <div style="margin-top:1rem"></div>
+      <!-- Atributos -->
       <div class="grid">
         <div class="card">
           <h2>Oficiais (1-10)</h2>
@@ -136,6 +128,7 @@
               <div class="sfill" id="bPod"></div>
             </div>
           </div>
+          <p style="font-size:.8rem;color:var(--m);margin-bottom:.4rem">Movimento no mapa = <strong>Velocidade</strong> células por ação de movimento (mín. 1).</p>
           <div class="srow"><span class="slab">🏃 Velocidade</span><input id="aVel" type="number" min="1" max="10"
               value="3" style="width:55px">
             <div class="sbar">
@@ -176,10 +169,7 @@
           <button class="b" id="btnRecalc" style="margin-top:.5rem">🔄 Recalcular Recursos</button>
         </div>
       </div>
-    </div>
-
-    <!-- QUIRK + EVOLUÇÃO -->
-    <div class="panel" id="p-quirk">
+      <!-- Quirk e Habilidades -->
       <div class="grid">
         <div class="card">
           <h2>Quirk</h2>
@@ -197,21 +187,27 @@
             <option value="moderada">Moderada (condições ou escala)</option>
             <option value="complexa" selected>Complexa (narrativa / crença / variáveis)</option>
           </select>
-          <label>Descrição Geral</label><textarea id="qDesc"
-            placeholder="O que o Quirk faz em poucas palavras"></textarea>
+          <label>Descrição Geral</label><textarea id="qDesc" placeholder="O que o Quirk faz em poucas palavras"></textarea>
           <label>Mecânica Especial (regras detalhadas)</label>
-          <textarea id="qMec" style="min-height:90px"
-            placeholder="Ex: O poder escala com o número de NPCs que acreditam no herói. 1-3 crentes = nível básico; 4-10 = +1d6; 11+ = vantagem e efeito maximizado. O Mestre determina a crença dos NPCs baseado em ações, reputação e narrativa."></textarea>
-          <label>Limitações / Preço</label><textarea id="qLim"
-            placeholder="Ex: Precisa de pelo menos 1 crente; se ninguém acreditar, o Quirk falha ou causa feedback"></textarea>
+          <textarea id="qMec" style="min-height:90px" placeholder="Ex: O poder escala com o número de NPCs que acreditam no herói. 1-3 crentes = nível básico; 4-10 = +1d6; 11+ = vantagem e efeito maximizado. O Mestre determina a crença dos NPCs baseado em ações, reputação e narrativa."></textarea>
+          <label>Limitações / Preço</label><textarea id="qLim" placeholder="Ex: Precisa de pelo menos 1 crente; se ninguém acreditar, o Quirk falha ou causa feedback"></textarea>
           <div class="grid">
             <div><label>Custo Energia base</label><input id="qCusto" type="number" value="2" min="0"></div>
             <div><label>Nível do Quirk</label><input id="qLv" type="number" value="1" min="1" max="10"></div>
           </div>
-          <label>Alcance</label><input id="qAlc" type="text"
-            placeholder="Ex: Toque / 10m / Visual / Global (com crença)">
-          <label>Duração</label><input id="qDur" type="text"
-            placeholder="Ex: Instantâneo / 1 turno / Enquanto houver crentes">
+          <div class="grid">
+            <div>
+              <label>Dano do Quirk (fórmula)</label>
+              <input id="qDmg" type="text" placeholder="Ex: 2d6+Poder · 1d8+Controle">
+            </div>
+            <div>
+              <label>Alcance em células (mapa)</label>
+              <input id="qAlcanceNum" type="number" value="1" min="0">
+            </div>
+          </div>
+          <label>Alcance (texto)</label><input id="qAlc" type="text" placeholder="Ex: Toque / 10m / Visual / Global (com crença)">
+          <label>Duração</label><input id="qDur" type="text" placeholder="Ex: Instantâneo / 1 turno / Enquanto houver crentes">
+          <p style="font-size:.78rem;color:var(--m);margin:.3rem 0 .5rem">O <strong>dano do Quirk</strong> vira ataque padrão no combate. Habilidades abaixo são técnicas extras.</p>
           <label>XP do Quirk</label><input id="qXP" type="number" value="0" min="0">
           <div class="bar-wrap"><span>Quirk XP</span>
             <div class="bar">
@@ -224,82 +220,64 @@
         <div class="card">
           <h2>Habilidades & Técnicas</h2>
           <div id="abList"></div>
-          <input id="abN" type="text" placeholder="Nome da habilidade / técnica">
-          <textarea id="abD" placeholder="Descrição + custo + condições especiais" style="min-height:50px"></textarea>
-          <button id="btnAddAb">➕ Adicionar</button>
-          <div
-            style="margin-top:.8rem;background:#0d1b2a;padding:.6rem;border-radius:8px;font-size:.82rem;color:var(--m)">
+          <label>Nome</label>
+          <input id="abN" type="text" placeholder="Ex: Delaware Smash">
+          <label>Tipo de ação</label>
+          <select id="abTipo">
+            <option value="combate">Ação de Combate (1 ação)</option>
+            <option value="movimento">Ação de Movimento (1 ação)</option>
+            <option value="completa">Ação Completa (2 ações)</option>
+            <option value="passiva">Passiva (sempre ativa)</option>
+          </select>
+          <label>Fórmula de dano (vazio = sem dano)</label>
+          <input id="abDmg" type="text" placeholder="Ex: 2d6+Poder · 1d8+Controle · 3d6">
+          <label>Custo de Energia</label>
+          <input id="abCusto" type="number" value="0" min="0">
+          <label>Alcance (células)</label>
+          <input id="abAlcance" type="number" value="1" min="0">
+          <label>Descrição</label>
+          <textarea id="abD" placeholder="Efeito, condições, limitações..." style="min-height:50px"></textarea>
+          <button id="btnAddAb">➕ Adicionar Habilidade</button>
+          <div style="margin-top:.8rem;background:#0d1b2a;padding:.6rem;border-radius:8px;font-size:.82rem;color:var(--m)">
             <strong style="color:var(--y)">Evolução de Quirk:</strong><br>
             Precisa de QXP = Nível do Quirk × 50.<br>
-            Ao evoluir: +1 Nível de Quirk, pode reduzir limitação, aumentar escala, criar nova habilidade ou aprimorar
-            mecânica complexa (Mestre aprova).
+            Ao evoluir: +1 Nível de Quirk, pode reduzir limitação, aumentar escala, criar nova habilidade ou aprimorar mecânica complexa (Mestre aprova).
           </div>
-          <div
-            style="margin-top:.8rem;background:#0d1b2a;padding:.6rem;border-radius:8px;font-size:.82rem;color:var(--m)">
+          <div style="margin-top:.8rem;background:#0d1b2a;padding:.6rem;border-radius:8px;font-size:.82rem;color:var(--m)">
             <strong style="color:var(--y)">Como adaptar Quirks complexas:</strong><br>
             • <strong>Simples:</strong> efeito fixo (ex: jato de fogo 2d6, custo 2).<br>
             • <strong>Moderada:</strong> tem escala ou condição (ex: mais forte com velocidade).<br>
-            • <strong>Complexa:</strong> depende de narrativa, NPCs, crença, emoções, etc. O Mestre julga o efeito caso
-            a caso usando a Mecânica Especial.
+            • <strong>Complexa:</strong> depende de narrativa, NPCs, crença, emoções, etc. O Mestre julga o efeito caso a caso usando a Mecânica Especial.
           </div>
         </div>
       </div>
       <div class="card" style="margin-top:1rem">
         <h2>Exemplos de Quirks (copie e adapte)</h2>
         <div style="font-size:.85rem;color:var(--m);line-height:1.5">
-          <p style="margin-bottom:.5rem"><strong style="color:var(--g)">Simples — Explosão (Bakugo):</strong> Emitter.
-            Cria explosões nas mãos usando suor nitroglicerina. Custo 2. Limitação: fadiga e suor necessário.</p>
-          <p style="margin-bottom:.5rem"><strong style="color:var(--y)">Moderada — Hardening (Kirishima):</strong>
-            Transformation. Endurece o corpo. Custo 1/turno. Escala com Nível do Quirk (mais resistência).</p>
-          <p style="margin-bottom:.5rem"><strong style="color:var(--o)">Complexa — Medo Materializado (exemplo
-              original):</strong> Emitter / Especial. O usuário sente o medo das pessoas próximas e materializa
-            manifestações físicas desse medo (criaturas, objetos, distorções). Quanto mais intenso e compartilhado o
-            medo, mais poderosas e duradouras as manifestações. O usuário sofre feedback emocional proporcional.</p>
-          <p style="margin-bottom:.5rem"><strong style="color:var(--p)">Complexa — New Order (inspirado):</strong> Pode
-            impor regras temporárias na realidade falando, mas só funciona se o alvo ou testemunhas aceitarem
-            minimamente a autoridade do usuário. Custo alto + desgaste mental.</p>
+          <p style="margin-bottom:.5rem"><strong style="color:var(--g)">Simples — Explosão (Bakugo):</strong> Emitter. Cria explosões nas mãos usando suor nitroglicerina. Custo 2. Limitação: fadiga e suor necessário.</p>
+          <p style="margin-bottom:.5rem"><strong style="color:var(--y)">Moderada — Hardening (Kirishima):</strong> Transformation. Endurece o corpo. Custo 1/turno. Escala com Nível do Quirk (mais resistência).</p>
+          <p style="margin-bottom:.5rem"><strong style="color:var(--o)">Complexa — Medo Materializado (exemplo original):</strong> Emitter / Especial. O usuário sente o medo das pessoas próximas e materializa manifestações físicas desse medo (criaturas, objetos, distorções). Quanto mais intenso e compartilhado o medo, mais poderosas e duradouras as manifestações. O usuário sofre feedback emocional proporcional.</p>
+          <p style="margin-bottom:.5rem"><strong style="color:var(--p)">Complexa — New Order (inspirado):</strong> Pode impor regras temporárias na realidade falando, mas só funciona se o alvo ou testemunhas aceitarem minimamente a autoridade do usuário. Custo alto + desgaste mental.</p>
         </div>
         <button class="b" id="btnExMedo" style="margin-top:.5rem">📋 Carregar exemplo "Medo Materializado"</button>
       </div>
-    </div>
-
-    <!-- COMBATE -->
-    <div class="panel" id="p-combate">
+      <!-- Notas -->
+          <!-- NOTAS -->
+    <div style="margin-top:1rem">
       <div class="grid">
         <div class="card">
-          <h2>Iniciativa</h2>
-          <div class="row">
-            <input id="iName" type="text" placeholder="Nome" style="flex:1">
-            <input id="iVal" type="number" placeholder="Ini" style="width:70px">
-            <button id="btnAddIni">➕</button>
-          </div>
-          <ul class="ilist" id="iList"></ul>
-          <div class="row" style="margin-top:.4rem">
-            <button class="b" id="btnNext">➡️ Próximo</button>
-            <button class="d" id="btnClrIni">Limpar</button>
-            <button class="g" id="btnRollIni">🎲 Rolar Todos</button>
-          </div>
-          <h2 style="margin-top:1rem">Atacar</h2>
-          <label>CA do Alvo (0 = 12 padrão)</label><input id="alvoCA" type="number" value="12" min="0">
-          <label>Nome do Alvo</label><input id="alvoNome" type="text" placeholder="Vilão / Inimigo">
-          <div style="display:flex;flex-direction:column;gap:.35rem;margin-top:.4rem">
-            <button id="atkBas">👊 Ataque Básico (1d6+Poder)</button>
-            <button class="p" id="atkEsp">💥 Especial −3 Energia (2d6+Poder)</button>
-            <button class="b" id="atkQuirk">⚡ Quirk −custo (1d8+Ctrl+Poder/2)</button>
-            <button class="o" id="atkPlus">🔥 PLUS ULTRA! −5 (vantagem + 2d8+Poder)</button>
-          </div>
-          <div id="atkRes" class="res hid"></div>
+          <h2>Inventário</h2><textarea id="inv" style="min-height:160px"></textarea>
         </div>
         <div class="card">
-          <h2>Log de Combate</h2>
-          <div class="log" id="cLog" style="max-height:360px"></div>
-          <div class="row" style="margin-top:.5rem">
-            <button class="g" id="actEsq">🛡️ Esquiva</button>
-            <button class="b" id="actDef">🧱 Defesa (+2 CA)</button>
-            <button class="d" id="clrLog">Limpar Log</button>
-          </div>
+          <h2>Notas</h2><textarea id="notas" style="min-height:160px"></textarea>
         </div>
       </div>
+      <div class="card">
+        <h2>Relacionamentos</h2><textarea id="rel" style="min-height:70px"></textarea>
+      </div>
+    </div>
+    </div>
+
     </div>
 
     <!-- INIMIGOS -->
@@ -337,28 +315,111 @@
       </div>
     </div>
 
-    <!-- MAPA -->
+    <!-- MAPA / COMBATE TÁTICO -->
     <div class="panel" id="p-mapa">
-      <div class="card">
-        <h2>🗺️ Mapa</h2>
-        <div class="row" style="margin-bottom:.6rem">
-          <button class="b" id="mmChar">👤 Personagem</button>
-          <button class="g" id="mmWall">🧱 Parede</button>
-          <button class="o" id="mmCover">🛡️ Cobertura</button>
-          <button class="d" id="mmClear">🗑️ Limpar célula</button>
-          <button class="p" id="mmReset">🔄 Reset</button>
-          <select id="mapSize">
-            <option value="8">8×8</option>
-            <option value="10" selected>10×10</option>
-            <option value="12">12×12</option>
-          </select>
+      <div class="grid">
+        <div class="card">
+          <h2>🗺️ Mapa Tático</h2>
+          <div class="row" style="margin-bottom:.5rem;flex-wrap:wrap;gap:.35rem">
+            <button class="b" id="mmChar">🦸 Herói</button>
+            <button class="b" id="mmNpc">🛡️ NPC Herói</button>
+            <button class="d" id="mmVil">👾 Vilão</button>
+            <button class="p" id="mmMove">🚶 Mover</button>
+            <button class="g" id="mmWall">🧱 Parede</button>
+            <button class="o" id="mmCover">🛡️ Cobertura</button>
+            <button class="d" id="mmClear">🗑️ Limpar</button>
+            <button class="p" id="mmReset">🔄 Reset</button>
+            <select id="mapSize">
+              <option value="8" selected>8×8</option>
+              <option value="10">10×10</option>
+              <option value="12">12×12</option>
+              <option value="16">16×16</option>
+              <option value="20">20×20</option>
+              <option value="24">24×24</option>
+              <option value="32">32×32</option>
+            </select>
+          </div>
+          <div class="row" style="margin-bottom:.5rem;gap:.4rem;flex-wrap:wrap">
+            <select id="mapHeroSelect" style="flex:1;min-width:140px;margin:0" title="Ficha salva para colocar como herói">
+              <option value="">— ficha salva —</option>
+            </select>
+            <input id="mapTokenName" type="text" placeholder="Nome NPC/Vilão" style="flex:1;min-width:110px;margin:0">
+            <input id="mapTokenHP" type="number" placeholder="PV" value="25" style="width:65px;margin:0" title="PV">
+            <input id="mapTokenCA" type="number" placeholder="CA" value="13" style="width:55px;margin:0" title="CA">
+            <input id="mapTokenPod" type="number" placeholder="Pod" value="3" style="width:55px;margin:0" title="Poder">
+            <span style="font-size:.8rem;color:var(--m)">Modo: <strong id="mapModeLabel">Herói</strong></span>
+          </div>
+          <p style="font-size:.78rem;color:var(--m);margin-bottom:.4rem">
+            <strong style="color:var(--y)">Combate:</strong> escolha Atacante e Alvo (lista ou clique) → ataque.
+            <strong>Mover:</strong> clique no token e depois na célula vazia.
+            <strong>Cobertura:</strong> +2 CA e −2 dano recebido. <strong>Parede:</strong> bloqueia célula.
+          </p>
+          <div style="overflow:auto;max-height:65vh">
+            <div class="mgrid" id="mapGrid"></div>
+          </div>
+          <p style="margin-top:.5rem;font-size:.8rem;color:var(--m)">
+            Célula: <strong id="selCell">—</strong> · Tokens: <span id="mapN">0</span>
+            · Atacante: <strong id="mapAtkName" style="color:var(--g)">—</strong>
+            · Alvo: <strong id="mapTgtName" style="color:var(--r)">—</strong>
+          </p>
         </div>
-        <div style="overflow:auto">
-          <div class="mgrid" id="mapGrid"></div>
+        <div class="card">
+          <h2>⚔️ Combate Tático</h2>
+          <div class="row" style="margin-bottom:.4rem">
+            <button class="b" id="mapRollIni">🎲 Iniciativa</button>
+            <button class="d" id="mapClrLog">Limpar log</button>
+          </div>
+          <div id="mapIniList" style="font-size:.8rem;color:var(--m);margin-bottom:.4rem;max-height:70px;overflow-y:auto"></div>
+          <div id="mapCombatants" style="max-height:120px;overflow-y:auto;margin-bottom:.5rem"></div>
+
+          <!-- Caixa estilo Pokémon -->
+          <div id="pokeBox" style="border:3px solid #5a8;border-radius:10px;overflow:hidden;background:#1a2a3a">
+            <div style="background:#0d1b2a;padding:.55rem .7rem;font-size:.95rem">
+              <div style="color:var(--m);font-size:.78rem">Ações: <strong id="mapActionsLeft" style="color:var(--g)">2</strong>/2</div>
+              <div id="pokePrompt" style="margin-top:.25rem;font-weight:700;color:var(--t)">
+                O que <span id="mapTurnName" style="color:var(--y)">—</span> vai fazer?
+              </div>
+              <div style="font-size:.8rem;margin-top:.25rem">
+                Alvo: <strong id="mapTgtInfo" style="color:var(--r)">nenhum (clique no mapa)</strong>
+              </div>
+            </div>
+            <!-- Menu principal -->
+            <div id="pokeMenuMain" style="display:grid;grid-template-columns:1fr 1fr;gap:2px;background:#2a4a5a;padding:2px">
+              <button id="pokeFight" style="padding:.7rem;font-size:.95rem;font-weight:800;background:#1a3a2a;border:none;color:#9f9;cursor:pointer">⚔️ ATACAR</button>
+              <button id="pokeMove" style="padding:.7rem;font-size:.95rem;font-weight:800;background:#1a2a3a;border:none;color:#9cf;cursor:pointer">🚶 MOVER</button>
+              <button id="pokeItem" style="padding:.7rem;font-size:.95rem;font-weight:800;background:#3a2a1a;border:none;color:#fc9;cursor:pointer">🎒 ITEM</button>
+              <button id="pokeRun" style="padding:.7rem;font-size:.95rem;font-weight:800;background:#3a1a1a;border:none;color:#f99;cursor:pointer">🏳️ DESISTIR</button>
+            </div>
+            <!-- Submenu: habilidades de ataque -->
+            <div id="pokeMenuFight" class="hid" style="padding:.5rem;background:#0d1b2a">
+              <div style="font-size:.8rem;color:var(--m);margin-bottom:.35rem">Escolha a habilidade · <button id="pokeBack1" style="padding:.15rem .4rem;font-size:.75rem">◀ Voltar</button></div>
+              <div id="mapAbilities" style="display:flex;flex-direction:column;gap:.3rem"></div>
+            </div>
+            <!-- Submenu: itens -->
+            <div id="pokeMenuItem" class="hid" style="padding:.5rem;background:#0d1b2a">
+              <div style="font-size:.8rem;color:var(--m);margin-bottom:.35rem">Usar item (1 ação) · <button id="pokeBack2" style="padding:.15rem .4rem;font-size:.75rem">◀ Voltar</button></div>
+              <button id="itemHeal" style="width:100%;margin-bottom:.3rem">🧪 Kit médico (+15 PV)</button>
+              <button id="itemEnergy" class="p" style="width:100%;margin-bottom:.3rem">⚡ Estimulante (+5 Energia)</button>
+              <button id="itemSmoke" class="o" style="width:100%">💨 Cortina de fumaça (+2 CA até o próximo turno)</button>
+            </div>
+            <!-- Submenu: confirma desistir -->
+            <div id="pokeMenuRun" class="hid" style="padding:.5rem;background:#0d1b2a">
+              <div style="font-size:.85rem;margin-bottom:.4rem">Desistir remove o personagem do combate.</div>
+              <div class="row">
+                <button class="d" id="pokeRunYes">Sim, desistir</button>
+                <button id="pokeBack3">◀ Voltar</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="row" style="margin-top:.5rem">
+            <button id="mapActEnd">✓ Encerrar turno</button>
+            <span style="font-size:.75rem;color:var(--m);align-self:center">Passivas ficam sempre ativas</span>
+          </div>
+          <div id="mapAtkRes" class="res hid" style="margin-top:.4rem"></div>
+          <div class="log" id="mapLog" style="margin-top:.5rem;max-height:130px"></div>
+          <span id="mapAtkInfo" class="hid">nenhum</span>
         </div>
-        <p style="margin-top:.5rem;font-size:.8rem;color:var(--m)">Célula: <strong id="selCell">—</strong> · Tokens:
-          <span id="mapN">0</span>
-        </p>
       </div>
     </div>
 
@@ -451,18 +512,10 @@
             <button class="b" id="calNext">▶</button>
           </div>
           <div class="cal-weekdays">
-            <div>Dom</div>
-            <div>Seg</div>
-            <div>Ter</div>
-            <div>Qua</div>
-            <div>Qui</div>
-            <div>Sex</div>
-            <div>Sáb</div>
+            <div>Dom</div><div>Seg</div><div>Ter</div><div>Qua</div><div>Qui</div><div>Sex</div><div>Sáb</div>
           </div>
           <div class="cal-grid" id="calGrid"></div>
-          <p style="margin-top:.6rem;font-size:.8rem;color:var(--m)">Clique em um dia para adicionar ou ver eventos ·
-            <span id="calSelDay">Nenhum dia selecionado</span>
-          </p>
+          <p style="margin-top:.6rem;font-size:.8rem;color:var(--m)">Clique em um dia para adicionar ou ver eventos · <span id="calSelDay">Nenhum dia selecionado</span></p>
         </div>
         <div class="card">
           <h2>📌 Evento</h2>
@@ -567,22 +620,6 @@
       </div>
     </div>
 
-    <!-- NOTAS -->
-    <div class="panel" id="p-notas">
-      <div class="grid">
-        <div class="card">
-          <h2>Inventário</h2><textarea id="inv" style="min-height:160px"></textarea>
-        </div>
-        <div class="card">
-          <h2>Notas</h2><textarea id="notas" style="min-height:160px"></textarea>
-        </div>
-      </div>
-      <div class="card">
-        <h2>Relacionamentos</h2><textarea id="rel" style="min-height:70px"></textarea>
-      </div>
-    </div>
-
-    <!-- MESTRE -->
     <div class="panel" id="p-mestre">
       <div class="grid">
         <div class="card">
@@ -610,7 +647,7 @@
       </div>
     </div>
 
-
+    
     <!-- REGRAS -->
     <div class="panel" id="p-regras">
       <div class="card">
@@ -619,15 +656,11 @@
         <h3 style="color:var(--y);margin:.8rem 0 .4rem">1. Criação de Personagem</h3>
         <ol style="padding-left:1.2rem;font-size:.88rem;color:var(--m)">
           <li>Clique em <strong>➕ Novo</strong> ou carregue um exemplo (🎭 Exemplos).</li>
-          <li>Aba <strong>📋 Ficha</strong>: Nome, Codinome, Idade, Gênero, Lado (Estudante U.A., Herói Profissional,
-            Vilão, Vigilante, Civil/Quirkless, Liga dos Vilões). Vilões ganham campos extras (Organização, Objetivo,
-            Perigo).</li>
+          <li>Aba <strong>📋 Ficha</strong>: Nome, Codinome, Idade, Gênero, Lado (Estudante U.A., Herói Profissional, Vilão, Vigilante, Civil/Quirkless, Liga dos Vilões). Vilões ganham campos extras (Organização, Objetivo, Perigo).</li>
           <li>Aba <strong>💪 Atributos</strong>:
             <ul style="margin:.3rem 0">
-              <li><strong>Oficiais (1-10)</strong>: Poder, Velocidade, Técnica, Inteligência, Cooperatividade (estilo
-                ranking da U.A.).</li>
-              <li><strong>Sistema (d20)</strong>: Força, Agilidade, Resistência, Inteligência, Carisma, Controle Quirk.
-              </li>
+              <li><strong>Oficiais (1-10)</strong>: Poder, Velocidade, Técnica, Inteligência, Cooperatividade (estilo ranking da U.A.).</li>
+              <li><strong>Sistema (d20)</strong>: Força, Agilidade, Resistência, Inteligência, Carisma, Controle Quirk.</li>
               <li>Clique em <strong>🔄 Recalcular Recursos</strong> para gerar PV, Stamina e Energia de Quirk.</li>
             </ul>
           </li>
@@ -637,106 +670,54 @@
         </ol>
 
         <h3 style="color:var(--y);margin:.8rem 0 .4rem">2. Criação de NPCs e Vilões</h3>
-        <p style="font-size:.88rem;color:var(--m)"><strong>Aba 👾 Inimigos:</strong> escolha o tipo (Rank C/B/A/S,
-          Lacaio, Nomu, Herói Rival) → 🎲 Gerar ou adicione manualmente. Depois use como Alvo, adicione na iniciativa ou
-          tire PV.</p>
-        <p style="font-size:.88rem;color:var(--m)"><strong>Aba 🎲 Mestre:</strong> ative o modo Mestre e gere NPCs + use
-          ferramentas de Encontro, Complicação e Recompensa.</p>
-        <p style="font-size:.85rem;color:var(--m)"><strong>Balanceamento:</strong> Rank C (ameaça local) · Rank B (1-2
-          heróis) · Rank A (grupo) · Rank S / Nomu (boss de arco).</p>
+        <p style="font-size:.88rem;color:var(--m)"><strong>Aba 👾 Inimigos:</strong> escolha o tipo (Rank C/B/A/S, Lacaio, Nomu, Herói Rival) → 🎲 Gerar ou adicione manualmente. Depois use como Alvo, adicione na iniciativa ou tire PV.</p>
+        <p style="font-size:.88rem;color:var(--m)"><strong>Aba 🎲 Mestre:</strong> ative o modo Mestre e gere NPCs + use ferramentas de Encontro, Complicação e Recompensa.</p>
+        <p style="font-size:.85rem;color:var(--m)"><strong>Balanceamento:</strong> Rank C (ameaça local) · Rank B (1-2 heróis) · Rank A (grupo) · Rank S / Nomu (boss de arco).</p>
 
         <h3 style="color:var(--y);margin:.8rem 0 .4rem">3. Sistema de Dados e Testes</h3>
         <p style="font-size:.88rem;color:var(--m)">O sistema usa <strong>d20</strong> (heroico e cinematográfico).</p>
         <table style="width:100%;font-size:.84rem;color:var(--m);border-collapse:collapse;margin-bottom:.5rem">
-          <tr style="border-bottom:1px solid var(--bd)">
-            <th style="text-align:left;padding:.3rem">Situação</th>
-            <th style="text-align:left;padding:.3rem">Rolagem</th>
-            <th style="text-align:left;padding:.3rem">Observação</th>
-          </tr>
-          <tr style="border-bottom:1px solid #1a2a3a">
-            <td style="padding:.3rem">Teste de atributo</td>
-            <td style="padding:.3rem">d20 + modificador</td>
-            <td style="padding:.3rem">Mod = (atributo − 10) ÷ 2</td>
-          </tr>
-          <tr style="border-bottom:1px solid #1a2a3a">
-            <td style="padding:.3rem">Ataque</td>
-            <td style="padding:.3rem">d20 + Técnica/Força (ou Controle no Quirk)</td>
-            <td style="padding:.3rem">vs CA do alvo</td>
-          </tr>
-          <tr style="border-bottom:1px solid #1a2a3a">
-            <td style="padding:.3rem">Iniciativa</td>
-            <td style="padding:.3rem">d20 + Agilidade</td>
-            <td style="padding:.3rem">—</td>
-          </tr>
-          <tr style="border-bottom:1px solid #1a2a3a">
-            <td style="padding:.3rem">Dano Básico</td>
-            <td style="padding:.3rem">1d6 + Poder</td>
-            <td style="padding:.3rem">Sem custo</td>
-          </tr>
-          <tr style="border-bottom:1px solid #1a2a3a">
-            <td style="padding:.3rem">Dano Especial</td>
-            <td style="padding:.3rem">2d6 + Poder</td>
-            <td style="padding:.3rem">Custa 3 de Energia</td>
-          </tr>
-          <tr style="border-bottom:1px solid #1a2a3a">
-            <td style="padding:.3rem">Dano de Quirk</td>
-            <td style="padding:.3rem">1d8 + Controle + Poder/2</td>
-            <td style="padding:.3rem">Custo do Quirk · +Nível/2 no ataque</td>
-          </tr>
-          <tr style="border-bottom:1px solid #1a2a3a">
-            <td style="padding:.3rem">Plus Ultra</td>
-            <td style="padding:.3rem">Vantagem + 2d8 + Poder</td>
-            <td style="padding:.3rem">Custa 5 de Energia</td>
-          </tr>
-          <tr>
-            <td style="padding:.3rem">Crítico / Falha</td>
-            <td style="padding:.3rem">20 natural / 1 natural</td>
-            <td style="padding:.3rem">Dano ×2 / errou + complicação</td>
-          </tr>
+          <tr style="border-bottom:1px solid var(--bd)"><th style="text-align:left;padding:.3rem">Situação</th><th style="text-align:left;padding:.3rem">Rolagem</th><th style="text-align:left;padding:.3rem">Observação</th></tr>
+          <tr style="border-bottom:1px solid #1a2a3a"><td style="padding:.3rem">Teste de atributo</td><td style="padding:.3rem">d20 + modificador</td><td style="padding:.3rem">Mod = (atributo − 10) ÷ 2</td></tr>
+          <tr style="border-bottom:1px solid #1a2a3a"><td style="padding:.3rem">Ataque</td><td style="padding:.3rem">d20 + Técnica/Força (ou Controle no Quirk)</td><td style="padding:.3rem">vs CA do alvo</td></tr>
+          <tr style="border-bottom:1px solid #1a2a3a"><td style="padding:.3rem">Iniciativa</td><td style="padding:.3rem">d20 + Agilidade</td><td style="padding:.3rem">—</td></tr>
+          <tr style="border-bottom:1px solid #1a2a3a"><td style="padding:.3rem">Dano Básico</td><td style="padding:.3rem">1d6 + Poder</td><td style="padding:.3rem">Sem custo</td></tr>
+          <tr style="border-bottom:1px solid #1a2a3a"><td style="padding:.3rem">Dano Especial</td><td style="padding:.3rem">2d6 + Poder</td><td style="padding:.3rem">Custa 3 de Energia</td></tr>
+          <tr style="border-bottom:1px solid #1a2a3a"><td style="padding:.3rem">Dano de Quirk</td><td style="padding:.3rem">1d8 + Controle + Poder/2</td><td style="padding:.3rem">Custo do Quirk · +Nível/2 no ataque</td></tr>
+          <tr style="border-bottom:1px solid #1a2a3a"><td style="padding:.3rem">Plus Ultra</td><td style="padding:.3rem">Vantagem + 2d8 + Poder</td><td style="padding:.3rem">Custa 5 de Energia</td></tr>
+          <tr><td style="padding:.3rem">Crítico / Falha</td><td style="padding:.3rem">20 natural / 1 natural</td><td style="padding:.3rem">Dano ×2 / errou + complicação</td></tr>
         </table>
-        <p style="font-size:.85rem;color:var(--m)"><strong>Vantagem / Desvantagem:</strong> role 2d20 e fique com o
-          melhor ou o pior.</p>
+        <p style="font-size:.85rem;color:var(--m)"><strong>Vantagem / Desvantagem:</strong> role 2d20 e fique com o melhor ou o pior.</p>
 
         <h3 style="color:var(--y);margin:.8rem 0 .4rem">4. Combate Completo</h3>
         <ol style="padding-left:1.2rem;font-size:.88rem;color:var(--m)">
           <li><strong>Iniciativa:</strong> todos rolam d20 + Agilidade. Ordem do maior para o menor.</li>
           <li><strong>Turno:</strong> mover + 1 ação principal.</li>
           <li><strong>Ações:</strong> Ataque Básico, Especial, Quirk, Plus Ultra, Esquiva ou Defesa Total (+2 CA).</li>
-          <li><strong>Ataque:</strong> d20 + modificador vs CA. Acerto → rola dano. Crítico (20) → dano ×2. Falha
-            crítica (1) → errou + complicação.</li>
-          <li><strong>Recursos:</strong> PV (vida), Stamina (esforço físico), Energia de Quirk (gasta em
-            Especial/Quirk/Plus Ultra).</li>
-          <li><strong>Derrota:</strong> PV ≤ 0 → fora de combate (desmaia ou fica incapacitado). O Mestre decide a
-            gravidade.</li>
+          <li><strong>Ataque:</strong> d20 + modificador vs CA. Acerto → rola dano. Crítico (20) → dano ×2. Falha crítica (1) → errou + complicação.</li>
+          <li><strong>Recursos:</strong> PV (vida), Stamina (esforço físico), Energia de Quirk (gasta em Especial/Quirk/Plus Ultra).</li>
+          <li><strong>Derrota:</strong> PV ≤ 0 → fora de combate (desmaia ou fica incapacitado). O Mestre decide a gravidade.</li>
         </ol>
-        <p style="font-size:.85rem;color:var(--m);margin-top:.4rem"><strong>Dica:</strong> Use o Log de Combate e a
-          lista de Inimigos. Clique em “Usar como Alvo” para preencher automaticamente CA e nome.</p>
+        <p style="font-size:.85rem;color:var(--m);margin-top:.4rem"><strong>Dica:</strong> Use o Log de Combate e a lista de Inimigos. Clique em “Usar como Alvo” para preencher automaticamente CA e nome.</p>
 
         <h3 style="color:var(--y);margin:.8rem 0 .4rem">5. Criação de Quirks — Guia Completo</h3>
         <p style="font-size:.88rem;color:var(--m);margin-bottom:.5rem">
-          Em My Hero Academia os Quirks são extremamente variados e inusitados. Este sistema foi feito para aceitar
-          <strong>qualquer ideia</strong>, desde um jato de fogo simples até poderes baseados em emoções, regras,
-          memória, medo, cópia, armazenamento ou manipulação da realidade.
+          Em My Hero Academia os Quirks são extremamente variados e inusitados. Este sistema foi feito para aceitar <strong>qualquer ideia</strong>, desde um jato de fogo simples até poderes baseados em emoções, regras, memória, medo, cópia, armazenamento ou manipulação da realidade.
         </p>
 
         <h4 style="color:var(--g);margin:.6rem 0 .3rem">5.1 Tipos Oficiais</h4>
         <ul style="padding-left:1.2rem;font-size:.88rem;color:var(--m)">
           <li><strong>Emitter:</strong> libera algo do corpo (fogo, explosão, ácido, laser, sombra, eletricidade…).</li>
-          <li><strong>Transformation:</strong> transforma o próprio corpo (endurecimento, gigantificação, lâminas de
-            osso, asas…).</li>
-          <li><strong>Mutant:</strong> alteração permanente do corpo (cauda, motores nas pernas, visor, tentáculos…).
-          </li>
-          <li><strong>Composite / Especial:</strong> mistura de tipos ou poderes que não se encaixam bem nas categorias
-            clássicas (cópias, regras, emoções, memória, crença, medo, contratos…).</li>
+          <li><strong>Transformation:</strong> transforma o próprio corpo (endurecimento, gigantificação, lâminas de osso, asas…).</li>
+          <li><strong>Mutant:</strong> alteração permanente do corpo (cauda, motores nas pernas, visor, tentáculos…).</li>
+          <li><strong>Composite / Especial:</strong> mistura de tipos ou poderes que não se encaixam bem nas categorias clássicas (cópias, regras, emoções, memória, crença, medo, contratos…).</li>
         </ul>
 
         <h4 style="color:var(--g);margin:.6rem 0 .3rem">5.2 Complexidade</h4>
         <ul style="padding-left:1.2rem;font-size:.88rem;color:var(--m)">
           <li><strong>Simples:</strong> efeito direto e previsível. Ex: “solta fogo pela boca”.</li>
-          <li><strong>Moderada:</strong> tem escala, condição ou variável. Ex: “quanto mais rápido corre, mais forte
-            fica”.</li>
-          <li><strong>Complexa:</strong> depende de fatores externos, narrativa, emoções, NPCs, regras impostas, etc. O
-            Mestre julga usando a <em>Mecânica Especial</em>.</li>
+          <li><strong>Moderada:</strong> tem escala, condição ou variável. Ex: “quanto mais rápido corre, mais forte fica”.</li>
+          <li><strong>Complexa:</strong> depende de fatores externos, narrativa, emoções, NPCs, regras impostas, etc. O Mestre julga usando a <em>Mecânica Especial</em>.</li>
         </ul>
 
         <h4 style="color:var(--g);margin:.6rem 0 .3rem">5.3 Passo a passo para criar qualquer Quirk</h4>
@@ -753,8 +734,7 @@
               <li>Tabelas de intensidade se necessário</li>
             </ul>
           </li>
-          <li><strong>Limitações / Preço</strong> — todo Quirk forte precisa de um custo real (fadiga, feedback
-            emocional, requisito de contato, risco de lesão, necessidade de emoção específica, etc.).</li>
+          <li><strong>Limitações / Preço</strong> — todo Quirk forte precisa de um custo real (fadiga, feedback emocional, requisito de contato, risco de lesão, necessidade de emoção específica, etc.).</li>
           <li><strong>Custo de Energia base</strong></li>
           <li><strong>Alcance e Duração</strong></li>
           <li><strong>Habilidades / Técnicas</strong> — usos específicos do Quirk (cada um com custo e condições).</li>
@@ -762,49 +742,33 @@
 
         <h4 style="color:var(--g);margin:.6rem 0 .3rem">5.4 Exemplos de categorias de Quirks inusitados</h4>
         <ul style="padding-left:1.2rem;font-size:.88rem;color:var(--m)">
-          <li><strong>Emoção / Estado mental:</strong> poder muda conforme raiva, medo, alegria, desespero do usuário ou
-            dos outros (ex: Medo Materializado).</li>
-          <li><strong>Crença / Expectativa / Fama:</strong> força escala com quantas pessoas acreditam, temem ou admiram
-            o usuário.</li>
-          <li><strong>Cópia / Roubo / Empréstimo:</strong> copia temporariamente o Quirk de outro (precisa de contato,
-            sangue, olhar, etc.).</li>
-          <li><strong>Armazenamento / Acúmulo:</strong> guarda energia, impactos, emoções ou objetos para liberar depois
-            (estilo One For All ou Impact Storage).</li>
-          <li><strong>Regra / Contrato / Palavra:</strong> impõe regras na realidade ou em alvos (estilo New Order).
-            Normalmente exige que o alvo ou testemunhas aceitem minimamente.</li>
+          <li><strong>Emoção / Estado mental:</strong> poder muda conforme raiva, medo, alegria, desespero do usuário ou dos outros (ex: Medo Materializado).</li>
+          <li><strong>Crença / Expectativa / Fama:</strong> força escala com quantas pessoas acreditam, temem ou admiram o usuário.</li>
+          <li><strong>Cópia / Roubo / Empréstimo:</strong> copia temporariamente o Quirk de outro (precisa de contato, sangue, olhar, etc.).</li>
+          <li><strong>Armazenamento / Acúmulo:</strong> guarda energia, impactos, emoções ou objetos para liberar depois (estilo One For All ou Impact Storage).</li>
+          <li><strong>Regra / Contrato / Palavra:</strong> impõe regras na realidade ou em alvos (estilo New Order). Normalmente exige que o alvo ou testemunhas aceitem minimamente.</li>
           <li><strong>Memória / Informação:</strong> lê, apaga, altera ou materializa memórias.</li>
-          <li><strong>Ambiente / Terreno:</strong> manipula o cenário (gravidade local, temperatura, paredes vivas,
-            portais…).</li>
-          <li><strong>Corpo extremo / Mutação progressiva:</strong> muda o corpo de formas cada vez mais estranhas e
-            poderosas (com risco de perder controle).</li>
-          <li><strong>Simbiótico / Parasita / Dualidade:</strong> o Quirk tem vontade própria ou uma segunda
-            personalidade.</li>
-          <li><strong>Probabilidade / Sorte / Destino:</strong> altera chances, força eventos “improváveis” ou lê
-            possibilidades.</li>
+          <li><strong>Ambiente / Terreno:</strong> manipula o cenário (gravidade local, temperatura, paredes vivas, portais…).</li>
+          <li><strong>Corpo extremo / Mutação progressiva:</strong> muda o corpo de formas cada vez mais estranhas e poderosas (com risco de perder controle).</li>
+          <li><strong>Simbiótico / Parasita / Dualidade:</strong> o Quirk tem vontade própria ou uma segunda personalidade.</li>
+          <li><strong>Probabilidade / Sorte / Destino:</strong> altera chances, força eventos “improváveis” ou lê possibilidades.</li>
           <li><strong>Som / Música / Voz:</strong> poderes baseados em frequência, melodia ou palavras faladas.</li>
-          <li><strong>Tempo / Idade / Ciclo:</strong> acelera, desacelera, reverte ou envelhece (sempre com limitações
-            fortes).</li>
+          <li><strong>Tempo / Idade / Ciclo:</strong> acelera, desacelera, reverte ou envelhece (sempre com limitações fortes).</li>
         </ul>
 
         <h4 style="color:var(--g);margin:.6rem 0 .3rem">5.5 Como balancear Quirks complexas</h4>
         <ul style="padding-left:1.2rem;font-size:.88rem;color:var(--m)">
-          <li>Todo poder forte precisa de um <strong>preço narrativo</strong> além do custo de energia (feedback, risco,
-            requisito social, fadiga mental, etc.).</li>
-          <li>Fatores externos (medo, crença, emoção dos NPCs, aceitação de regras…) são sempre decididos pelo
-            <strong>Mestre</strong>, nunca pelo jogador.
-          </li>
+          <li>Todo poder forte precisa de um <strong>preço narrativo</strong> além do custo de energia (feedback, risco, requisito social, fadiga mental, etc.).</li>
+          <li>Fatores externos (medo, crença, emoção dos NPCs, aceitação de regras…) são sempre decididos pelo <strong>Mestre</strong>, nunca pelo jogador.</li>
           <li>Use a Reputação, Ranking e ações recentes do personagem como referência para fatores sociais.</li>
-          <li>Permita evolução: ao subir o Nível do Quirk (QXP = Nível × 50), o jogador pode melhorar a escala, reduzir
-            limitações ou criar novas técnicas (com aprovação do Mestre).</li>
-          <li>Se o Quirk parecer forte demais, aumente o custo, adicione feedback ou restrinja as condições de ativação.
-          </li>
+          <li>Permita evolução: ao subir o Nível do Quirk (QXP = Nível × 50), o jogador pode melhorar a escala, reduzir limitações ou criar novas técnicas (com aprovação do Mestre).</li>
+          <li>Se o Quirk parecer forte demais, aumente o custo, adicione feedback ou restrinja as condições de ativação.</li>
         </ul>
 
         <h4 style="color:var(--g);margin:.6rem 0 .3rem">5.6 Exemplo completo: Medo Materializado</h4>
         <p style="font-size:.88rem;color:var(--m)">
           <strong>Tipo:</strong> Composite / Especial · <strong>Complexidade:</strong> Complexa<br>
-          O usuário sente o medo das pessoas próximas e materializa manifestações físicas desse medo. O poder, tamanho e
-          duração dependem da intensidade e quantidade de medo presente. O usuário sofre feedback emocional.
+          O usuário sente o medo das pessoas próximas e materializa manifestações físicas desse medo. O poder, tamanho e duração dependem da intensidade e quantidade de medo presente. O usuário sofre feedback emocional.
         </p>
         <ul style="padding-left:1.2rem;font-size:.88rem;color:var(--m)">
           <li>Medo baixo → manifestações fracas</li>
@@ -815,8 +779,7 @@
 
         <h3 style="color:var(--y);margin:.8rem 0 .4rem">6. Progressão (XP, Ranking, Agência)</h3>
         <ul style="padding-left:1.2rem;font-size:.88rem;color:var(--m)">
-          <li><strong>XP do personagem:</strong> Nível × 100 para subir de nível (ganha +3 PV, +1 Stamina, +1 Energia).
-          </li>
+          <li><strong>XP do personagem:</strong> Nível × 100 para subir de nível (ganha +3 PV, +1 Stamina, +1 Energia).</li>
           <li><strong>QXP (Quirk):</strong> Nível do Quirk × 50 para evoluir.</li>
           <li><strong>Rank pessoal:</strong> C → B (50 pts) · B → A (120 pts) · A → S (250 pts).</li>
           <li><strong>Agência:</strong> Reputação mínima + AXP (Rank × 100) para subir de D até S.</li>
@@ -828,8 +791,7 @@
           <li>Crie os vilões/NPCs.</li>
           <li>Use o mapa se quiser combate tático.</li>
           <li>Role iniciativa → ataque → dano → anote no log.</li>
-          <li>Para Quirks complexas: jogador declara intenção → Mestre define fatores externos → aplica a Mecânica
-            Especial.</li>
+          <li>Para Quirks complexas: jogador declara intenção → Mestre define fatores externos → aplica a Mecânica Especial.</li>
           <li>Conceda XP, QXP, pontos de Ranking e Reputação conforme as ações.</li>
         </ol>
 
@@ -837,9 +799,7 @@
       </div>
     </div>
 
-    <div class="foot">MHA Tabletop · Quirks Simples a Complexas · Medo Materializado · Inimigos · Ranking · Agência ·
-      Evolução</div>
-    <script src="app.js"></script>
+  <div class="foot">MHA Tabletop · Quirks Simples a Complexas · Medo Materializado · Inimigos · Ranking · Agência · Evolução</div>
+  <script src="app.js"></script>
 </body>
-
 </html>
