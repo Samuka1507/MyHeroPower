@@ -651,151 +651,185 @@
     <!-- REGRAS -->
     <div class="panel" id="p-regras">
       <div class="card">
-        <h2>📖 Regras Completas do Sistema</h2>
+        <h2>📖 Regras do Jogo</h2>
+        <p style="font-size:.88rem;color:var(--m);margin-bottom:.8rem">
+          Sistema de RPG de mesa inspirado em <strong>My Hero Academia</strong>. Combate tático em mapa, quirks livres e economia de 2 ações por turno.
+        </p>
 
-        <h3 style="color:var(--y);margin:.8rem 0 .4rem">1. Criação de Personagem</h3>
-        <ol style="padding-left:1.2rem;font-size:.88rem;color:var(--m)">
-          <li>Clique em <strong>➕ Novo</strong> ou carregue um exemplo (🎭 Exemplos).</li>
-          <li>Aba <strong>📋 Ficha</strong>: Nome, Codinome, Idade, Gênero, Lado (Estudante U.A., Herói Profissional, Vilão, Vigilante, Civil/Quirkless, Liga dos Vilões). Vilões ganham campos extras (Organização, Objetivo, Perigo).</li>
-          <li>Aba <strong>💪 Atributos</strong>:
-            <ul style="margin:.3rem 0">
-              <li><strong>Oficiais (1-10)</strong>: Poder, Velocidade, Técnica, Inteligência, Cooperatividade (estilo ranking da U.A.).</li>
-              <li><strong>Sistema (d20)</strong>: Força, Agilidade, Resistência, Inteligência, Carisma, Controle Quirk.</li>
-              <li>Clique em <strong>🔄 Recalcular Recursos</strong> para gerar PV, Stamina e Energia de Quirk.</li>
-            </ul>
-          </li>
-          <li>Aba <strong>⚡ Quirk</strong> → veja a seção completa de criação de Quirks abaixo.</li>
-          <li>Preencha Aparência, História, Inventário, Notas e Relacionamentos.</li>
-          <li>Salve com <strong>💾 Salvar</strong>. O personagem aparece como chip no topo.</li>
-        </ol>
+        <h3 style="color:var(--y);margin:.9rem 0 .4rem">1. Material</h3>
+        <ul style="padding-left:1.2rem;font-size:.88rem;color:var(--m)">
+          <li>Dados: <strong>d20</strong> e dados de dano (d4–d12, etc.)</li>
+          <li>Ficha de personagem (herói, vilão ou civil)</li>
+          <li>Mapa em grade (padrão 8×8)</li>
+          <li>Um Mestre para narrar e arbitrar quirks complexas</li>
+        </ul>
 
-        <h3 style="color:var(--y);margin:.8rem 0 .4rem">2. Criação de NPCs e Vilões</h3>
-        <p style="font-size:.88rem;color:var(--m)"><strong>Aba 👾 Inimigos:</strong> escolha o tipo (Rank C/B/A/S, Lacaio, Nomu, Herói Rival) → 🎲 Gerar ou adicione manualmente. Depois use como Alvo, adicione na iniciativa ou tire PV.</p>
-        <p style="font-size:.88rem;color:var(--m)"><strong>Aba 🎲 Mestre:</strong> ative o modo Mestre e gere NPCs + use ferramentas de Encontro, Complicação e Recompensa.</p>
-        <p style="font-size:.85rem;color:var(--m)"><strong>Balanceamento:</strong> Rank C (ameaça local) · Rank B (1-2 heróis) · Rank A (grupo) · Rank S / Nomu (boss de arco).</p>
+        <h3 style="color:var(--y);margin:.9rem 0 .4rem">2. Criação de Personagem</h3>
+        <h4 style="color:var(--t);margin:.5rem 0 .3rem;font-size:.92rem">2.1 Conceito</h4>
+        <p style="font-size:.88rem;color:var(--m)">Nome, codinome, idade, lado (estudante, herói profissional, vilão, vigilante, civil) e histórico breve.</p>
 
-        <h3 style="color:var(--y);margin:.8rem 0 .4rem">3. Sistema de Dados e Testes</h3>
-        <p style="font-size:.88rem;color:var(--m)">O sistema usa <strong>d20</strong> (heroico e cinematográfico).</p>
-        <table style="width:100%;font-size:.84rem;color:var(--m);border-collapse:collapse;margin-bottom:.5rem">
-          <tr style="border-bottom:1px solid var(--bd)"><th style="text-align:left;padding:.3rem">Situação</th><th style="text-align:left;padding:.3rem">Rolagem</th><th style="text-align:left;padding:.3rem">Observação</th></tr>
-          <tr style="border-bottom:1px solid #1a2a3a"><td style="padding:.3rem">Teste de atributo</td><td style="padding:.3rem">d20 + modificador</td><td style="padding:.3rem">Mod = (atributo − 10) ÷ 2</td></tr>
-          <tr style="border-bottom:1px solid #1a2a3a"><td style="padding:.3rem">Ataque</td><td style="padding:.3rem">d20 + Técnica/Força (ou Controle no Quirk)</td><td style="padding:.3rem">vs CA do alvo</td></tr>
-          <tr style="border-bottom:1px solid #1a2a3a"><td style="padding:.3rem">Iniciativa</td><td style="padding:.3rem">d20 + Agilidade</td><td style="padding:.3rem">—</td></tr>
-          <tr style="border-bottom:1px solid #1a2a3a"><td style="padding:.3rem">Dano Básico</td><td style="padding:.3rem">1d6 + Poder</td><td style="padding:.3rem">Sem custo</td></tr>
-          <tr style="border-bottom:1px solid #1a2a3a"><td style="padding:.3rem">Dano Especial</td><td style="padding:.3rem">2d6 + Poder</td><td style="padding:.3rem">Custa 3 de Energia</td></tr>
-          <tr style="border-bottom:1px solid #1a2a3a"><td style="padding:.3rem">Dano de Quirk</td><td style="padding:.3rem">1d8 + Controle + Poder/2</td><td style="padding:.3rem">Custo do Quirk · +Nível/2 no ataque</td></tr>
-          <tr style="border-bottom:1px solid #1a2a3a"><td style="padding:.3rem">Plus Ultra</td><td style="padding:.3rem">Vantagem + 2d8 + Poder</td><td style="padding:.3rem">Custa 5 de Energia</td></tr>
-          <tr><td style="padding:.3rem">Crítico / Falha</td><td style="padding:.3rem">20 natural / 1 natural</td><td style="padding:.3rem">Dano ×2 / errou + complicação</td></tr>
+        <h4 style="color:var(--t);margin:.5rem 0 .3rem;font-size:.92rem">2.2 Atributos oficiais (1–10)</h4>
+        <ul style="padding-left:1.2rem;font-size:.88rem;color:var(--m)">
+          <li><strong>Poder</strong> — escala de dano e força dos golpes</li>
+          <li><strong>Velocidade</strong> — células andadas por ação de movimento (mín. 1)</li>
+          <li><strong>Técnica</strong> — precisão e estilo de luta</li>
+          <li><strong>Inteligência</strong> — raciocínio e conhecimento</li>
+          <li><strong>Cooperatividade</strong> — trabalho em equipe e liderança</li>
+        </ul>
+
+        <h4 style="color:var(--t);margin:.5rem 0 .3rem;font-size:.92rem">2.3 Atributos de sistema</h4>
+        <ul style="padding-left:1.2rem;font-size:.88rem;color:var(--m)">
+          <li><strong>Força, Agilidade, Resistência, Inteligência, Carisma, Controle de Quirk</strong></li>
+          <li><strong>Modificador</strong> = (atributo − 10) ÷ 2 (arredonde para baixo)</li>
+        </ul>
+
+        <h4 style="color:var(--t);margin:.5rem 0 .3rem;font-size:.92rem">2.4 Recursos</h4>
+        <ul style="padding-left:1.2rem;font-size:.88rem;color:var(--m)">
+          <li><strong>PV</strong> — vida; 0 = derrotado na cena</li>
+          <li><strong>Stamina</strong> — esforço físico prolongado</li>
+          <li><strong>Energia de Quirk</strong> — gasta no Quirk e em habilidades ativas</li>
+        </ul>
+
+        <h3 style="color:var(--y);margin:.9rem 0 .4rem">3. Testes</h3>
+        <p style="font-size:.88rem;color:var(--m)">Role <strong>1d20 + modificador</strong> do atributo adequado e compare com a CD do Mestre.</p>
+        <table style="width:100%;font-size:.84rem;color:var(--m);border-collapse:collapse;margin:.4rem 0 .6rem">
+          <tr style="border-bottom:1px solid var(--bd)"><th style="text-align:left;padding:.3rem">CD</th><th style="text-align:left;padding:.3rem">Dificuldade</th></tr>
+          <tr style="border-bottom:1px solid #1a2a3a"><td style="padding:.3rem">10</td><td style="padding:.3rem">Fácil</td></tr>
+          <tr style="border-bottom:1px solid #1a2a3a"><td style="padding:.3rem">13</td><td style="padding:.3rem">Moderada</td></tr>
+          <tr style="border-bottom:1px solid #1a2a3a"><td style="padding:.3rem">16</td><td style="padding:.3rem">Difícil</td></tr>
+          <tr style="border-bottom:1px solid #1a2a3a"><td style="padding:.3rem">18</td><td style="padding:.3rem">Muito difícil</td></tr>
+          <tr><td style="padding:.3rem">20+</td><td style="padding:.3rem">Heroica</td></tr>
         </table>
-        <p style="font-size:.85rem;color:var(--m)"><strong>Vantagem / Desvantagem:</strong> role 2d20 e fique com o melhor ou o pior.</p>
+        <p style="font-size:.88rem;color:var(--m)"><strong>Vantagem:</strong> 2d20, use o maior. <strong>Desvantagem:</strong> 2d20, use o menor.</p>
 
-        <h3 style="color:var(--y);margin:.8rem 0 .4rem">4. Combate Completo</h3>
-        <ol style="padding-left:1.2rem;font-size:.88rem;color:var(--m)">
-          <li><strong>Iniciativa:</strong> todos rolam d20 + Agilidade. Ordem do maior para o menor.</li>
-          <li><strong>Turno:</strong> mover + 1 ação principal.</li>
-          <li><strong>Ações:</strong> Ataque Básico, Especial, Quirk, Plus Ultra, Esquiva ou Defesa Total (+2 CA).</li>
-          <li><strong>Ataque:</strong> d20 + modificador vs CA. Acerto → rola dano. Crítico (20) → dano ×2. Falha crítica (1) → errou + complicação.</li>
-          <li><strong>Recursos:</strong> PV (vida), Stamina (esforço físico), Energia de Quirk (gasta em Especial/Quirk/Plus Ultra).</li>
-          <li><strong>Derrota:</strong> PV ≤ 0 → fora de combate (desmaia ou fica incapacitado). O Mestre decide a gravidade.</li>
-        </ol>
-        <p style="font-size:.85rem;color:var(--m);margin-top:.4rem"><strong>Dica:</strong> Use o Log de Combate e a lista de Inimigos. Clique em “Usar como Alvo” para preencher automaticamente CA e nome.</p>
+        <h3 style="color:var(--y);margin:.9rem 0 .4rem">4. Combate</h3>
+        <p style="font-size:.88rem;color:var(--m)">Combate tático em mapa quadriculado.</p>
 
-        <h3 style="color:var(--y);margin:.8rem 0 .4rem">5. Criação de Quirks — Guia Completo</h3>
-        <p style="font-size:.88rem;color:var(--m);margin-bottom:.5rem">
-          Em My Hero Academia os Quirks são extremamente variados e inusitados. Este sistema foi feito para aceitar <strong>qualquer ideia</strong>, desde um jato de fogo simples até poderes baseados em emoções, regras, memória, medo, cópia, armazenamento ou manipulação da realidade.
-        </p>
-
-        <h4 style="color:var(--g);margin:.6rem 0 .3rem">5.1 Tipos Oficiais</h4>
-        <ul style="padding-left:1.2rem;font-size:.88rem;color:var(--m)">
-          <li><strong>Emitter:</strong> libera algo do corpo (fogo, explosão, ácido, laser, sombra, eletricidade…).</li>
-          <li><strong>Transformation:</strong> transforma o próprio corpo (endurecimento, gigantificação, lâminas de osso, asas…).</li>
-          <li><strong>Mutant:</strong> alteração permanente do corpo (cauda, motores nas pernas, visor, tentáculos…).</li>
-          <li><strong>Composite / Especial:</strong> mistura de tipos ou poderes que não se encaixam bem nas categorias clássicas (cópias, regras, emoções, memória, crença, medo, contratos…).</li>
-        </ul>
-
-        <h4 style="color:var(--g);margin:.6rem 0 .3rem">5.2 Complexidade</h4>
-        <ul style="padding-left:1.2rem;font-size:.88rem;color:var(--m)">
-          <li><strong>Simples:</strong> efeito direto e previsível. Ex: “solta fogo pela boca”.</li>
-          <li><strong>Moderada:</strong> tem escala, condição ou variável. Ex: “quanto mais rápido corre, mais forte fica”.</li>
-          <li><strong>Complexa:</strong> depende de fatores externos, narrativa, emoções, NPCs, regras impostas, etc. O Mestre julga usando a <em>Mecânica Especial</em>.</li>
-        </ul>
-
-        <h4 style="color:var(--g);margin:.6rem 0 .3rem">5.3 Passo a passo para criar qualquer Quirk</h4>
-        <ol style="padding-left:1.2rem;font-size:.88rem;color:var(--m)">
-          <li><strong>Nome</strong> — criativo e memorável.</li>
-          <li><strong>Tipo</strong> — Emitter / Transformation / Mutant / Composite.</li>
-          <li><strong>Complexidade</strong> — Simples, Moderada ou Complexa.</li>
-          <li><strong>Descrição Geral</strong> — 1 a 3 frases do que o Quirk faz.</li>
-          <li><strong>Mecânica Especial</strong> — o coração da criação. Escreva:
-            <ul style="margin:.2rem 0">
-              <li>Como o poder funciona exatamente</li>
-              <li>O que escala (intensidade, quantidade de pessoas, emoção, tempo…)</li>
-              <li>O que o Mestre precisa decidir</li>
-              <li>Tabelas de intensidade se necessário</li>
-            </ul>
-          </li>
-          <li><strong>Limitações / Preço</strong> — todo Quirk forte precisa de um custo real (fadiga, feedback emocional, requisito de contato, risco de lesão, necessidade de emoção específica, etc.).</li>
-          <li><strong>Custo de Energia base</strong></li>
-          <li><strong>Alcance e Duração</strong></li>
-          <li><strong>Habilidades / Técnicas</strong> — usos específicos do Quirk (cada um com custo e condições).</li>
-        </ol>
-
-        <h4 style="color:var(--g);margin:.6rem 0 .3rem">5.4 Exemplos de categorias de Quirks inusitados</h4>
-        <ul style="padding-left:1.2rem;font-size:.88rem;color:var(--m)">
-          <li><strong>Emoção / Estado mental:</strong> poder muda conforme raiva, medo, alegria, desespero do usuário ou dos outros (ex: Medo Materializado).</li>
-          <li><strong>Crença / Expectativa / Fama:</strong> força escala com quantas pessoas acreditam, temem ou admiram o usuário.</li>
-          <li><strong>Cópia / Roubo / Empréstimo:</strong> copia temporariamente o Quirk de outro (precisa de contato, sangue, olhar, etc.).</li>
-          <li><strong>Armazenamento / Acúmulo:</strong> guarda energia, impactos, emoções ou objetos para liberar depois (estilo One For All ou Impact Storage).</li>
-          <li><strong>Regra / Contrato / Palavra:</strong> impõe regras na realidade ou em alvos (estilo New Order). Normalmente exige que o alvo ou testemunhas aceitem minimamente.</li>
-          <li><strong>Memória / Informação:</strong> lê, apaga, altera ou materializa memórias.</li>
-          <li><strong>Ambiente / Terreno:</strong> manipula o cenário (gravidade local, temperatura, paredes vivas, portais…).</li>
-          <li><strong>Corpo extremo / Mutação progressiva:</strong> muda o corpo de formas cada vez mais estranhas e poderosas (com risco de perder controle).</li>
-          <li><strong>Simbiótico / Parasita / Dualidade:</strong> o Quirk tem vontade própria ou uma segunda personalidade.</li>
-          <li><strong>Probabilidade / Sorte / Destino:</strong> altera chances, força eventos “improváveis” ou lê possibilidades.</li>
-          <li><strong>Som / Música / Voz:</strong> poderes baseados em frequência, melodia ou palavras faladas.</li>
-          <li><strong>Tempo / Idade / Ciclo:</strong> acelera, desacelera, reverte ou envelhece (sempre com limitações fortes).</li>
-        </ul>
-
-        <h4 style="color:var(--g);margin:.6rem 0 .3rem">5.5 Como balancear Quirks complexas</h4>
-        <ul style="padding-left:1.2rem;font-size:.88rem;color:var(--m)">
-          <li>Todo poder forte precisa de um <strong>preço narrativo</strong> além do custo de energia (feedback, risco, requisito social, fadiga mental, etc.).</li>
-          <li>Fatores externos (medo, crença, emoção dos NPCs, aceitação de regras…) são sempre decididos pelo <strong>Mestre</strong>, nunca pelo jogador.</li>
-          <li>Use a Reputação, Ranking e ações recentes do personagem como referência para fatores sociais.</li>
-          <li>Permita evolução: ao subir o Nível do Quirk (QXP = Nível × 50), o jogador pode melhorar a escala, reduzir limitações ou criar novas técnicas (com aprovação do Mestre).</li>
-          <li>Se o Quirk parecer forte demais, aumente o custo, adicione feedback ou restrinja as condições de ativação.</li>
-        </ul>
-
-        <h4 style="color:var(--g);margin:.6rem 0 .3rem">5.6 Exemplo completo: Medo Materializado</h4>
+        <h4 style="color:var(--t);margin:.5rem 0 .3rem;font-size:.92rem">4.1 Iniciativa (fixa da cena)</h4>
         <p style="font-size:.88rem;color:var(--m)">
-          <strong>Tipo:</strong> Composite / Especial · <strong>Complexidade:</strong> Complexa<br>
-          O usuário sente o medo das pessoas próximas e materializa manifestações físicas desse medo. O poder, tamanho e duração dependem da intensidade e quantidade de medo presente. O usuário sofre feedback emocional.
+          No início do combate, todos rolam:<br>
+          <strong>Iniciativa = 1d20 + mod. de Agilidade + (Velocidade ÷ 3)</strong>
         </p>
         <ul style="padding-left:1.2rem;font-size:.88rem;color:var(--m)">
-          <li>Medo baixo → manifestações fracas</li>
-          <li>Medo moderado → criaturas/obstáculos com PV e ataques</li>
-          <li>Medo intenso / pânico → manifestações poderosas + efeitos de status</li>
-          <li>Se o medo for superado, as manifestações enfraquecem ou podem se voltar contra o usuário</li>
+          <li>Ordem do maior para o menor</li>
+          <li>Vale a <strong>cena inteira</strong> — não se rola de novo a cada rodada</li>
+          <li>0 PV remove o combatente da ordem</li>
+          <li>Ao fim do turno, passa para a <strong>próxima entidade</strong> (jogador, NPC ou vilão)</li>
         </ul>
 
-        <h3 style="color:var(--y);margin:.8rem 0 .4rem">6. Progressão (XP, Ranking, Agência)</h3>
+        <h4 style="color:var(--t);margin:.5rem 0 .3rem;font-size:.92rem">4.2 Turno — duas ações</h4>
+        <p style="font-size:.88rem;color:var(--m)">Cada turno concede <strong>2 ações</strong>.</p>
         <ul style="padding-left:1.2rem;font-size:.88rem;color:var(--m)">
-          <li><strong>XP do personagem:</strong> Nível × 100 para subir de nível (ganha +3 PV, +1 Stamina, +1 Energia).</li>
-          <li><strong>QXP (Quirk):</strong> Nível do Quirk × 50 para evoluir.</li>
-          <li><strong>Rank pessoal:</strong> C → B (50 pts) · B → A (120 pts) · A → S (250 pts).</li>
-          <li><strong>Agência:</strong> Reputação mínima + AXP (Rank × 100) para subir de D até S.</li>
+          <li><strong>Ação de movimento</strong> — custo 1</li>
+          <li><strong>Ação de combate</strong> — custo 1</li>
+          <li><strong>Ação completa</strong> — custo 2</li>
+          <li><strong>Passiva</strong> — não gasta ação</li>
+        </ul>
+        <p style="font-size:.88rem;color:var(--m)">Sem ações restantes (ou ao encerrar o turno), a vez passa ao próximo da iniciativa.</p>
+
+        <h4 style="color:var(--t);margin:.5rem 0 .3rem;font-size:.92rem">4.3 Opções no turno</h4>
+        <ul style="padding-left:1.2rem;font-size:.88rem;color:var(--m)">
+          <li><strong>Atacar</strong> — Quirk padrão ou habilidade de combate</li>
+          <li><strong>Mover</strong> — deslocar-se até Velocidade células</li>
+          <li><strong>Usar item</strong> — efeitos rápidos (cura, energia, fumaça…)</li>
+          <li><strong>Desistir</strong> — sair do combate</li>
         </ul>
 
-        <h3 style="color:var(--y);margin:.8rem 0 .4rem">7. Fluxo de Jogo Recomendado</h3>
-        <ol style="padding-left:1.2rem;font-size:.88rem;color:var(--m)">
-          <li>Crie os personagens dos jogadores.</li>
-          <li>Crie os vilões/NPCs.</li>
-          <li>Use o mapa se quiser combate tático.</li>
-          <li>Role iniciativa → ataque → dano → anote no log.</li>
-          <li>Para Quirks complexas: jogador declara intenção → Mestre define fatores externos → aplica a Mecânica Especial.</li>
-          <li>Conceda XP, QXP, pontos de Ranking e Reputação conforme as ações.</li>
-        </ol>
+        <h4 style="color:var(--t);margin:.5rem 0 .3rem;font-size:.92rem">4.4 Movimento</h4>
+        <ul style="padding-left:1.2rem;font-size:.88rem;color:var(--m)">
+          <li>Células por ação de movimento = <strong>Velocidade</strong> (mínimo 1)</li>
+          <li>Paredes bloqueiam passagem</li>
+          <li>Não é possível terminar o movimento em célula ocupada</li>
+        </ul>
 
-        <p style="text-align:center;margin-top:1.2rem;font-weight:900;color:var(--y);letter-spacing:2px">PLUS ULTRA!</p>
+        <h4 style="color:var(--t);margin:.5rem 0 .3rem;font-size:.92rem">4.5 Ataque</h4>
+        <ol style="padding-left:1.2rem;font-size:.88rem;color:var(--m)">
+          <li>Escolha um alvo dentro do <strong>alcance</strong> (células)</li>
+          <li>Role <strong>1d20 + modificador de ataque</strong> (Força, Agilidade ou Controle — o maior entre eles costuma aplicar-se a quirks)</li>
+          <li>Compare com a <strong>CA</strong> do alvo</li>
+          <li>No acerto, role a <strong>fórmula de dano</strong> da habilidade ou do Quirk</li>
+        </ol>
+        <ul style="padding-left:1.2rem;font-size:.88rem;color:var(--m)">
+          <li><strong>Crítico (20 natural):</strong> dano ×2</li>
+          <li><strong>Falha crítica (1 natural):</strong> erro; o Mestre pode aplicar complicação</li>
+        </ul>
+
+        <h4 style="color:var(--t);margin:.5rem 0 .3rem;font-size:.92rem">4.6 Cobertura</h4>
+        <ul style="padding-left:1.2rem;font-size:.88rem;color:var(--m)">
+          <li><strong>+2 CA</strong> para quem está sob cobertura</li>
+          <li><strong>−2 de dano</strong> quando o ataque acerta</li>
+        </ul>
+
+        <h4 style="color:var(--t);margin:.5rem 0 .3rem;font-size:.92rem">4.7 Itens (exemplos)</h4>
+        <ul style="padding-left:1.2rem;font-size:.88rem;color:var(--m)">
+          <li>Kit médico — +15 PV (1 ação)</li>
+          <li>Estimulante — +5 Energia de Quirk (1 ação)</li>
+          <li>Cortina de fumaça — +2 CA até o próximo turno (1 ação)</li>
+        </ul>
+
+        <h3 style="color:var(--y);margin:.9rem 0 .4rem">5. Quirks</h3>
+        <p style="font-size:.88rem;color:var(--m)">
+          Cada Quirk define o próprio dano e regras. Não existe dano genérico obrigatório para todos os poderes.
+        </p>
+        <h4 style="color:var(--t);margin:.5rem 0 .3rem;font-size:.92rem">5.1 O que todo Quirk precisa ter</h4>
+        <ul style="padding-left:1.2rem;font-size:.88rem;color:var(--m)">
+          <li>Nome e tipo (Emitter, Transformation, Mutant ou Composto)</li>
+          <li>Complexidade (Simples, Moderada ou Complexa)</li>
+          <li>Descrição e mecânica de funcionamento</li>
+          <li>Limitações / preço</li>
+          <li>Custo de Energia e Nível (1–10)</li>
+          <li><strong>Fórmula de dano</strong> (ataque padrão) — ex.: 2d6+Poder, 1d8+Controle</li>
+          <li>Alcance (células e descrição) e duração</li>
+        </ul>
+
+        <h4 style="color:var(--t);margin:.5rem 0 .3rem;font-size:.92rem">5.2 Habilidades e técnicas</h4>
+        <p style="font-size:.88rem;color:var(--m)">Além do ataque padrão, o personagem pode ter técnicas com:</p>
+        <ul style="padding-left:1.2rem;font-size:.88rem;color:var(--m)">
+          <li>Tipo de ação (Combate, Movimento, Completa ou Passiva)</li>
+          <li>Fórmula de dano própria (ou nenhuma)</li>
+          <li>Custo de Energia e alcance em células</li>
+          <li>Descrição de efeito e condições</li>
+        </ul>
+
+        <h4 style="color:var(--t);margin:.5rem 0 .3rem;font-size:.92rem">5.3 Complexidade</h4>
+        <ul style="padding-left:1.2rem;font-size:.88rem;color:var(--m)">
+          <li><strong>Simples</strong> — efeito direto</li>
+          <li><strong>Moderada</strong> — condições, duração ou escala parcial</li>
+          <li><strong>Complexa</strong> — fatores externos (medo, crença, cópia, regras impostas…). O Mestre interpreta na mesa</li>
+        </ul>
+
+        <h4 style="color:var(--t);margin:.5rem 0 .3rem;font-size:.92rem">5.4 Evolução</h4>
+        <p style="font-size:.88rem;color:var(--m)">
+          QXP necessário para subir de nível = <strong>Nível atual × 50</strong>.
+          Ao evoluir: +1 no Nível do Quirk; pode reduzir limitação, melhorar escala ou criar técnica (com aprovação do Mestre).
+        </p>
+
+        <h4 style="color:var(--t);margin:.5rem 0 .3rem;font-size:.92rem">5.5 Fórmulas de dano</h4>
+        <p style="font-size:.88rem;color:var(--m)">
+          Exemplos: <code>1d6+Poder</code>, <code>2d6+Poder</code>, <code>1d8+Controle</code>, <code>3d6+Poder</code>.
+          Termos válidos: Poder, Controle, Força, Agilidade, Nível.
+        </p>
+
+        <h3 style="color:var(--y);margin:.9rem 0 .4rem">6. CA, dano e derrota</h3>
+        <ul style="padding-left:1.2rem;font-size:.88rem;color:var(--m)">
+          <li><strong>CA</strong> — dificuldade de ser acertado</li>
+          <li><strong>Dano</strong> — reduz PV</li>
+          <li><strong>0 PV</strong> — derrotado na cena (nocaute, incapacitado ou fora de ação, a critério do Mestre)</li>
+        </ul>
+
+        <h3 style="color:var(--y);margin:.9rem 0 .4rem">7. Fora de combate</h3>
+        <p style="font-size:.88rem;color:var(--m)">
+          Exploração, investigação e cenas sociais usam d20 + atributo adequado.
+          Missões, agência e ranking avançam a campanha, sem alterar as regras básicas de teste e combate.
+        </p>
+
+        <h3 style="color:var(--y);margin:.9rem 0 .4rem">8. Papel do Mestre</h3>
+        <ul style="padding-left:1.2rem;font-size:.88rem;color:var(--m)">
+          <li>Definir CDs e interpretar quirks complexas</li>
+          <li>Controlar NPCs e vilões na iniciativa</li>
+          <li>Ajustar ameaças (Rank C até S / Nomu)</li>
+          <li>Fazer limitações de Quirk importarem tanto quanto os poderes</li>
+        </ul>
       </div>
     </div>
 
